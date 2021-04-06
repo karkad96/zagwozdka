@@ -1,0 +1,12 @@
+<mat-toolbar color="primary" class="app-header">
+	<div>
+		<a href="#" target="_blank" class="positronx">Filmiarz</a>
+	</div>
+	<span class="nav-tool-items" *ngIf="!(LoginStatus$ | async) as LoginStatus">
+    	<a mat-button routerLink="login" routerLinkActive="active" *ngIf="LoginStatus">Zaloguj się</a>
+    	<a mat-button mat-raised-button routerLink="register" routerLinkActive="active" *ngIf="LoginStatus">Zarejestruj się</a>
+	</span>
+	<span class="nav-tool-items" *ngIf="(LoginStatus$ | async) as LoginStatus">
+    	<a mat-button mat-raised-button (click)="onLogout()" *ngIf="LoginStatus">Wyloguj się</a>
+	</span>
+</mat-toolbar>

@@ -1,0 +1,40 @@
+<div class="main-wrapper" fxLayout="row" fxLayoutAlign="center center">
+	<mat-card class="box">
+		<mat-card-header>
+			<mat-card-title>Rejestracja</mat-card-title>
+		</mat-card-header>
+
+		<form [formGroup]="registerService.formModel" class="example-form" (ngSubmit)="onSubmit()" autocomplete="off">
+			<mat-card-content>
+				<mat-form-field class="example-full-width">
+					<input matInput placeholder="Nazwa użytkownika" formControlName="UserName">
+					<mat-error *ngIf="registerService.formModel.get('UserName')?.touched && registerService.formModel.get('UserName')?.errors?.required">To pole jest wymagane</mat-error>
+				</mat-form-field>
+
+				<mat-form-field class="example-full-width">
+					<input matInput placeholder="Email" formControlName="Email">
+					<mat-error *ngIf="registerService.formModel.get('Email')?.touched && registerService.formModel.get('Email')?.errors?.required">To pole jest wymagane</mat-error>
+					<mat-error *ngIf="registerService.formModel.get('Email')?.touched && registerService.formModel.get('Email')?.errors?.email">Niepoprawny adres email</mat-error>
+
+				</mat-form-field>
+
+				<div formGroupName="Passwords">
+					<mat-form-field class="example-full-width">
+						<input matInput placeholder="Hasło" formControlName="Password" type="password">
+						<mat-error *ngIf="registerService.formModel.get('Passwords.Password')?.touched && registerService.formModel.get('Passwords.Password')?.errors?.required">To pole jest wymagane</mat-error>
+					</mat-form-field>
+
+					<mat-form-field class="example-full-width">
+						<input matInput placeholder="Powtórz hasło" formControlName="ConfirmPassword" type="password">
+						<mat-error *ngIf="registerService.formModel.get('Passwords.ConfirmPassword')?.touched && registerService.formModel.get('Passwords.ConfirmPassword')?.errors?.required">To pole jest wymagane</mat-error>
+						<mat-error *ngIf="registerService.formModel.get('Passwords.ConfirmPassword')?.touched && registerService.formModel.get('Passwords.ConfirmPassword')?.errors?.passwordMismatch">Podane hasła się nie zgadzają</mat-error>
+					</mat-form-field>
+				</div>
+
+			</mat-card-content>
+
+			<button mat-stroked-button color="accent" class="btn-block" [disabled]="!registerService.formModel.valid">Zarejestruj się</button>
+
+		</form>
+	</mat-card>
+</div>

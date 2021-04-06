@@ -1,0 +1,24 @@
+<div class="main-wrapper" fxLayout="row" fxLayoutAlign="center center">
+
+	<mat-card class="box">
+		<mat-card-header>
+			<mat-card-title>Logowanie</mat-card-title>
+		</mat-card-header>
+
+		<form [formGroup]="loginService.formModel" class="example-form" (ngSubmit)="onSubmit()" autocomplete="off">
+			<mat-card-content>
+				<mat-form-field class="example-full-width">
+					<input matInput placeholder="Nazwa użytkownika" formControlName="UserName">
+					<mat-error *ngIf="loginService.formModel.get('UserName')?.touched && loginService.formModel.get('UserName')?.errors?.required">To pole jest wymagane</mat-error>
+				</mat-form-field>
+
+				<mat-form-field class="example-full-width">
+					<input matInput placeholder="Hasło" formControlName="Password" type="password">
+					<mat-error *ngIf="loginService.formModel.get('Password')?.touched && loginService.formModel.get('UserName')?.errors?.required">To pole jest wymagane</mat-error>
+				</mat-form-field>
+			</mat-card-content>
+			<button mat-stroked-button color="accent" class="btn-block">Zaloguj się</button>
+		</form>
+	</mat-card>
+
+</div>
