@@ -11,7 +11,7 @@ namespace Backend.Controllers
     [ApiController]
     public class AuthTest : ControllerBase
     {
-        private UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public AuthTest(UserManager<ApplicationUser> userManager)
         {

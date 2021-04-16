@@ -15,7 +15,7 @@ namespace Backend.Controllers
     [ApiController]
     public class ApplicationUserController : ControllerBase
     {
-        private UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IOptions<ApplicationSettings> _appSettings;
 
         public ApplicationUserController(UserManager<ApplicationUser> userManager,
@@ -73,7 +73,6 @@ namespace Backend.Controllers
             var token = tokenHandler.WriteToken(securityToken);
 
             return Ok(new {token});
-
         }
     }
 }

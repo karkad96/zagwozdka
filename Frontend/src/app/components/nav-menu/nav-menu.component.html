@@ -1,6 +1,6 @@
-<mat-toolbar color="primary" class="app-header">
+<mat-toolbar color="primary" class="app-header" fxLayout="row">
 	<div>
-		<a href="#" target="_blank" class="positronx">Filmiarz</a>
+		<a routerLink="home" class="positronx">Zagwozdka</a>
 	</div>
 	<span class="nav-tool-items" *ngIf="!(LoginStatus$ | async) as LoginStatus">
     	<a mat-button routerLink="login" routerLinkActive="active" *ngIf="LoginStatus">Zaloguj się</a>
