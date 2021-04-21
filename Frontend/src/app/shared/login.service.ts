@@ -43,10 +43,6 @@ export class LoginService {
 		return !(localStorage.getItem('token') === null || localStorage.getItem('token') === undefined);
 	}
 
-	getAuthTest() {
-		return this.httpClient.get(environment.baseUrl + '/AuthTest');
-	}
-
 	get isLoggedIn() {
 		return this.loginStatus.asObservable();
 	}

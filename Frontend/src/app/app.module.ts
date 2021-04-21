@@ -1,6 +1,5 @@
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -16,6 +15,10 @@ import { LoginService } from "./shared/login.service";
 import { HomeComponent } from './components/home/home.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import {ProblemService} from "./shared/problem.service";
+import {CdkTableModule} from "@angular/cdk/table";
+import { NavComponent } from './components/nav/nav.component';
+import { ProblemComponent } from './components/problem/problem.component';
 
 @NgModule({
   declarations: [
@@ -23,22 +26,26 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     RegisterComponent,
 	  LoginComponent,
 	  HomeComponent,
-	  NavMenuComponent
+	  NavMenuComponent,
+	  NavComponent,
+	  ProblemComponent
   ],
-  imports: [
-  	BrowserModule,
-    AppRoutingModule,
-	  AngularMaterialModule,
-	  FlexLayoutModule,
-	  FormsModule,
-	  ReactiveFormsModule,
-	  BrowserAnimationsModule,
-	  HttpClientModule,
-	  ToastrModule.forRoot({
-		  progressBar: true
-	  })
-  ],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		AngularMaterialModule,
+		FlexLayoutModule,
+		FormsModule,
+		ReactiveFormsModule,
+		BrowserAnimationsModule,
+		HttpClientModule,
+		ToastrModule.forRoot({
+			progressBar: true
+		}),
+		CdkTableModule
+	],
   providers: [
+  	ProblemService,
   	RegisterService,
 	  LoginService,
 	  {

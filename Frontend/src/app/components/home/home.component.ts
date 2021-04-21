@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {LoginService} from "../../shared/login.service";
+import {ProblemService} from "../../shared/problem.service";
+import {IProblem} from "../../models/problem";
 
 @Component({
   selector: 'app-home',
@@ -7,17 +8,11 @@ import {LoginService} from "../../shared/login.service";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+	public problems: IProblem[] = []
 
-	constructor(private service: LoginService) { }
+	constructor(private problemService: ProblemService) { }
 
 	ngOnInit() {
-		this.service.getAuthTest().subscribe(
-			() => {
-			},
-			err => {
-				console.log(err);
-			},
-		);
+		this.problemService.getProblems().subscribe(data => this.problems = data);
 	}
-
 }

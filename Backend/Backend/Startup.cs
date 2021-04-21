@@ -39,8 +39,9 @@ namespace Backend
 			services.AddIdentityCore<ApplicationUser>().AddEntityFrameworkStores<AuthenticationContext>();
 
 			services.AddSwaggerDocument();
-			services.AddControllers();
-
+			services.AddControllers().AddNewtonsoftJson(options =>
+				options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+			);
 			services.Configure<IdentityOptions>(options =>
 			{
 				options.Password.RequireDigit = false;

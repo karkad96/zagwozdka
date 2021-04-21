@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import { LoginService } from "../../shared/login.service";
 import { Observable } from "rxjs";
 
@@ -8,10 +8,10 @@ import { Observable } from "rxjs";
   styleUrls: ['./nav-menu.component.scss']
 })
 export class NavMenuComponent implements OnInit {
-
 	constructor(private loginService : LoginService) { }
 
 	LoginStatus$! : Observable<boolean>;
+	@Output() toggleSidenav = new EventEmitter<void>();
 
 	ngOnInit() {
 		this.LoginStatus$ = this.loginService.isLoggedIn;
