@@ -46,5 +46,4 @@ export class LoginService {
 	get isLoggedIn() {
 		return this.loginStatus.asObservable();
 	}
-
 }

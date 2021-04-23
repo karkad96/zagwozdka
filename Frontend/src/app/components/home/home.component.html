@@ -1,35 +1,36 @@
-<mat-table [dataSource]="problems">
-	<ng-container matColumnDef="problemId">
-		<mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
-		<mat-cell *matCellDef="let row"> {{row.problemId}} </mat-cell>
-	</ng-container>
+<div class="center">
+	<mat-table [dataSource]="problems">
+		<ng-container matColumnDef="problemId">
+			<mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+			<mat-cell *matCellDef="let row"> {{row.problemId}} </mat-cell>
+		</ng-container>
 
-	<ng-container matColumnDef="title">
-		<mat-header-cell *matHeaderCellDef> Tytuł </mat-header-cell>
-		<mat-cell *matCellDef="let row">
-			<a routerLink="/problem/{{row.problemId}}">
-				 {{row.title}}
-			</a>
-		</mat-cell>
-	</ng-container>
+		<ng-container matColumnDef="title">
+			<mat-header-cell *matHeaderCellDef> Tytuł </mat-header-cell>
+			<mat-cell *matCellDef="let row">
+				<a routerLink="/problem/{{row.problemId}}">
+					 {{row.title}}
+				</a>
+			</mat-cell>
+		</ng-container>
 
-	<ng-container matColumnDef="difficulty">
-		<mat-header-cell *matHeaderCellDef> Poziom trudności </mat-header-cell>
-		<mat-cell *matCellDef="let row"> {{row.difficulty}} </mat-cell>
-	</ng-container>
+		<ng-container matColumnDef="difficulty">
+			<mat-header-cell *matHeaderCellDef> Poziom trudności </mat-header-cell>
+			<mat-cell *matCellDef="let row"> {{row.difficulty}} </mat-cell>
+		</ng-container>
 
-	<ng-container matColumnDef="solvedBy">
-		<mat-header-cell *matHeaderCellDef> Rozwiązało </mat-header-cell>
-		<mat-cell *matCellDef="let row"> {{row.solvedBy}} </mat-cell>
-	</ng-container>
+		<ng-container matColumnDef="solvedBy">
+			<mat-header-cell *matHeaderCellDef> Rozwiązało </mat-header-cell>
+			<mat-cell *matCellDef="let row"> {{row.solvedBy}} </mat-cell>
+		</ng-container>
 
-	<ng-container matColumnDef="releaseDate">
-		<mat-header-cell *matHeaderCellDef> Data wydania </mat-header-cell>
-		<mat-cell *matCellDef="let row"> {{row.releaseDate.split(":", 1)}} </mat-cell>
-	</ng-container>
+		<ng-container matColumnDef="releaseDate">
+			<mat-header-cell *matHeaderCellDef> Data wydania </mat-header-cell>
+			<mat-cell *matCellDef="let row"> {{row.releaseDate.split(".", 1)}} </mat-cell>
+		</ng-container>
 
-	<mat-header-row *matHeaderRowDef="['problemId', 'title', 'difficulty', 'solvedBy', 'releaseDate']"></mat-header-row>
-	<mat-row *matRowDef="let row; columns: ['problemId', 'title', 'difficulty', 'solvedBy', 'releaseDate']"></mat-row>
-</mat-table>
-
+		<mat-header-row *matHeaderRowDef="['problemId', 'title', 'difficulty', 'solvedBy', 'releaseDate']"></mat-header-row>
+		<mat-row *matRowDef="let row; columns: ['problemId', 'title', 'difficulty', 'solvedBy', 'releaseDate']"></mat-row>
+	</mat-table>
+</div>
 

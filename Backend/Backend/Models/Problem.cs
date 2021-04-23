@@ -13,16 +13,21 @@ namespace Backend.Models
         public int SolvedBy { get; set; }
         public string Difficulty { get; set; }
         public DateTime ReleaseDate { get; set; }
-        public List<Tag> Tags { get; set; }
+        public List<ProblemTag> ProblemTags { get; set; }
     }
 
     public class Tag
     {
         public int TagId { get; set; }
         public string TagName { get; set; }
+        public List<ProblemTag> ProblemTags { get; set; }
+    }
 
-        [ForeignKey("ProblemId")]
+    public class ProblemTag
+    {
         public int ProblemId { get; set; }
         public Problem Problem { get; set; }
+        public int TagId { get; set; }
+        public Tag Tag { get; set; }
     }
 }

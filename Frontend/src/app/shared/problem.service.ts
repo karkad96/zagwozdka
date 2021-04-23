@@ -17,4 +17,8 @@ export class ProblemService {
 	getProblem(id: number): Observable<IProblem> {
 		return this.httpClient.get<IProblem>(environment.baseUrl + '/Home/' + id);
 	}
+
+	postAnswer(body: any) {
+
+	}
 }

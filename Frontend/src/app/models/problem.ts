@@ -2,7 +2,6 @@ export interface IProblem {
 	problemId: number
 	title: string
 	description: string
-	answer: string
 	solvedBy: number
 	difficulty: string
 	releaseDate: string
@@ -12,5 +11,4 @@ export interface IProblem {
 export interface ITag {
 	tagId: number
 	tagName: string
-	problemId: number
 }

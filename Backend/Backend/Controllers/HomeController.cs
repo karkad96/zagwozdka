@@ -25,7 +25,22 @@ namespace Backend.Controllers
         [HttpGet]
         public async Task<object> GetProblems()
         {
-            var problems = await _context.Problems.Include(p => p.Tags).ToListAsync();
+            var problems = await _context.Problems
+                .Select(p => new
+                {
+                    problemId = p.ProblemId,
+                    title = p.Title,
+                    description = p.Description,
+                    solvedBy = p.SolvedBy,
+                    difficulty = p.Difficulty,
+                    releaseDate = p.ReleaseDate,
+                    tags = p.ProblemTags.Select(pt => pt.Tag).Select( t => new
+                    {
+                        tagId = t.TagId,
+                        tagName = t.TagName
+                    })
+                })
+                .ToListAsync();
 
             return Ok(problems);
         }
@@ -34,7 +49,22 @@ namespace Backend.Controllers
         [Route("{id}")]
         public async Task<object> GetProblem(int id)
         {
-            var problem = await _context.Problems.Where(p=> p.ProblemId == id).Include(p => p.Tags).ToListAsync();
+            var problem = await _context.Problems
+                .Select(p => new
+                    {
+                        problemId = p.ProblemId,
+                        title = p.Title,
+                        description = p.Description,
+                        solvedBy = p.SolvedBy,
+                        difficulty = p.Difficulty,
+                        releaseDate = p.ReleaseDate,
+                        tags = p.ProblemTags.Select(pt => pt.Tag).Select( t => new
+                        {
+                            tagId = t.TagId,
+                            tagName = t.TagName
+                        })
+                    })
+                .SingleOrDefaultAsync(p=> p.problemId == id);
 
             return Ok(problem);
         }
