@@ -4,7 +4,7 @@
 	<div>
 		<p>{{problem.description}}</p>
 	</div>
-	<div fxLayout="row" *ngIf="(LoginStatus$ | async)" class="center">
+	<div fxLayout="row" *ngIf="(LoginStatus$ | async) && !problem.isSolved" class="center">
 		<form [formGroup]="formModel" (ngSubmit)="onSubmit()" autocomplete="off">
 			<input matInput placeholder="Odpowiedź" formControlName="Answer">
 			<button mat-stroked-button color="primary" class="btn-block">Odpowiedz</button>

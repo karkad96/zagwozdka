@@ -5,7 +5,8 @@ import {ProblemService} from "../../shared/problem.service";
 import { Location } from '@angular/common';
 import {Observable} from "rxjs";
 import {LoginService} from "../../shared/login.service";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, FormGroup} from "@angular/forms";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-problem',
@@ -18,27 +19,42 @@ export class ProblemComponent implements OnInit {
 	formModel = new FormGroup({
 		Answer: new FormControl()
 	});
+	private readonly id: number;
 	constructor(
 		private route: ActivatedRoute,
 		private problemService: ProblemService,
 		private location: Location,
 		private loginService: LoginService,
-		private formBuilder: FormBuilder
-	) {}
+		private toastrService: ToastrService
+	) {
+		this.id = Number(this.route.snapshot.paramMap.get('id'));
+	}
 
-  	ngOnInit(): void {
+  	ngOnInit() {
 		this.getProblem();
 		this.LoginStatus$ = this.loginService.isLoggedIn;
   	}
 
 	getProblem(): void {
-		const id = Number(this.route.snapshot.paramMap.get('id'));
-		this.problemService.getProblem(id)
+		this.problemService.getProblem(this.id)
 			.subscribe(data => this.problem = data);
 	}
 
 	onSubmit() {
-		console.log(this.formModel.value.Answer);
+		this.problemService.postAnswer(this.id, {Answer: this.formModel.value.Answer})
+			.subscribe(
+			(res: any) => {
+				if(res.response) {
+					this.toastrService.success(
+						'Brawo! Udało Ci się rozwiązać zagwozdke!', 'Zagwozdka rozwiązana!');
+					this.problem!.isSolved = true;
+				}
+				else {
+					this.toastrService.error(
+						'Niestety. Podana odpowiedź nie jest prawidłowa', 'Coś poszło nie tak...');
+				}
+			}
+		)
 	}
 
 	goBack(): void {

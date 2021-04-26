@@ -17,4 +17,9 @@ namespace Backend.Models
         public List<ProblemTag> ProblemTags { get; set; }
         public List<ProblemUser> ProblemUsers { get; set; }
     }
+
+    public class Result
+    {
+        public string Answer { get; set; }
+    }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.Models.Joins
@@ -8,5 +9,6 @@ namespace Backend.Models.Joins
         public Problem Problem { get; set; }
         public string Id { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
+        public DateTime SolvedDate { get; set; }
     }
 }

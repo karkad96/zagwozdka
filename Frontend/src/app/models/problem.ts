@@ -6,6 +6,7 @@ export interface IProblem {
 	difficulty: string
 	releaseDate: string
 	tags: Array<ITag>
+	isSolved: boolean
 }
 
 export interface ITag {

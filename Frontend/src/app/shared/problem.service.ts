@@ -1,24 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {Observable, of} from "rxjs";
+import {BehaviorSubject, Observable, of} from "rxjs";
 import {IProblem} from "../models/problem";
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ProblemService {
+	private url: string = environment.baseUrl + '/Home';
+	private problemStatus = new BehaviorSubject<boolean>(false);
 	constructor(private httpClient: HttpClient) { }
 
 	getProblems(): Observable<IProblem[]> {
-		return this.httpClient.get<IProblem[]>(environment.baseUrl + '/Home');
+		return this.httpClient.get<IProblem[]>(this.url);
 	}
 
 	getProblem(id: number): Observable<IProblem> {
-		return this.httpClient.get<IProblem>(environment.baseUrl + '/Home/' + id);
+		return this.httpClient.get<IProblem>(this.url + '/' + id);
 	}
 
-	postAnswer(body: any) {
-
+	postAnswer(id: number, body: any) {
+		return this.httpClient.post(this.url + '/' + id, body);
 	}
 }
