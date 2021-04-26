@@ -2,9 +2,10 @@
 	<button mat-icon-button (click)="toggleSidenav.emit()">
 		<mat-icon>menu</mat-icon>
 	</button>
-	<div>
+	<span>
 		<a routerLink="home" class="positronx">Zagwozdka</a>
-	</div>
+	</span>
+	<span class="example-spacer"></span>
 	<span class="nav-tool-items" *ngIf="!(LoginStatus$ | async) as LoginStatus">
     	<a mat-button routerLink="login" routerLinkActive="active" *ngIf="LoginStatus">Zaloguj się</a>
     	<a mat-button mat-raised-button routerLink="register" routerLinkActive="active" *ngIf="LoginStatus">Zarejestruj się</a>

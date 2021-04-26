@@ -1,0 +1,19 @@
+a {
+	color: #3f51b5;
+	text-decoration: none;
+	font-weight: 450;
+}
+
+mat-table {
+	width: 50%;
+}
+
+mat-header-cell, mat-cell {
+	justify-content: center;
+}
+
+.center {
+	display: flex;
+	justify-content: center;
+}
+

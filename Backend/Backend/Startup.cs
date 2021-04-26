@@ -21,7 +21,7 @@ namespace Backend
 			Configuration = configuration;
 		}
 
-		public IConfiguration Configuration { get; }
+		private IConfiguration Configuration { get; }
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
@@ -32,11 +32,7 @@ namespace Backend
 				// options.UsePostgresSql(Configuration.GetConnectionString("DefaultConnection")));
 				options.UseSqlite(Configuration.GetConnectionString("SqlLiteConnection")));
 
-			services.AddDbContext<AuthenticationContext>(options =>
-				// options.UsePostgresSql(Configuration.GetConnectionString("DefaultConnection")));
-				options.UseSqlite(Configuration.GetConnectionString("SqlLiteConnection")));
-
-			services.AddIdentityCore<ApplicationUser>().AddEntityFrameworkStores<AuthenticationContext>();
+			services.AddIdentityCore<ApplicationUser>().AddEntityFrameworkStores<Context>();
 
 			services.AddSwaggerDocument();
 			services.AddControllers().AddNewtonsoftJson(options =>

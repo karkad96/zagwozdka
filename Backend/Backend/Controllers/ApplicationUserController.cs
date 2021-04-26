@@ -29,10 +29,10 @@ namespace Backend.Controllers
         [Route("Register")]
         public async Task<object> PostApplicationUser(ApplicationUserModel model)
         {
-            var applicationUser = new ApplicationUser()
+            var applicationUser = new ApplicationUser
             {
                 UserName = model.UserName,
-                Email = model.Email,
+                Email = model.Email
             };
 
             try

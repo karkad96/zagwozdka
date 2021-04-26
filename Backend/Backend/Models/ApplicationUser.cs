@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using Backend.Models.Joins;
+using Microsoft.AspNetCore.Identity;
 
  namespace Backend.Models
 {
 	public class ApplicationUser: IdentityUser
 	{
-		public string FullName { get; set; }
+		public List<ProblemUser> ProblemUsers { get; set; }
 	}
 }

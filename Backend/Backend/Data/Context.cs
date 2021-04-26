@@ -1,22 +1,52 @@
 ﻿using System;
 using Backend.Models;
+using Backend.Models.Joins;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Data
 {
-	public class Context:DbContext
+	public class Context : IdentityDbContext
 	{
+		public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 		public DbSet<Problem> Problems { get; set; }
 		public DbSet<Tag> Tags { get; set; }
+		public DbSet<ProblemTag> ProblemTags { get; set; }
+		public DbSet<ProblemUser> ProblemUsers { get; set; }
+
 		public Context(DbContextOptions<Context> options) : base(options)
 		{
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<Tag>()
-				.HasOne(p => p.Problem)
-				.WithMany(t => t.Tags);
+			base.OnModelCreating(modelBuilder);
+
+			modelBuilder.Entity<ProblemTag>()
+				.HasKey(pt => new {pt.ProblemId, pt.TagId});
+
+			modelBuilder.Entity<ProblemTag>()
+				.HasOne(pt => pt.Problem)
+				.WithMany(p => p.ProblemTags)
+				.HasForeignKey(pt => pt.ProblemId);
+
+			modelBuilder.Entity<ProblemTag>()
+				.HasOne(pt => pt.Tag)
+				.WithMany(t => t.ProblemTags)
+				.HasForeignKey(pt => pt.TagId);
+
+			modelBuilder.Entity<ProblemUser>()
+				.HasKey(pt => new {pt.ProblemId, pt.Id});
+
+			modelBuilder.Entity<ProblemUser>()
+				.HasOne(pt => pt.Problem)
+				.WithMany(p => p.ProblemUsers)
+				.HasForeignKey(pt => pt.ProblemId);
+
+			modelBuilder.Entity<ProblemUser>()
+				.HasOne(pt => pt.ApplicationUser)
+				.WithMany(t => t.ProblemUsers)
+				.HasForeignKey(pt => pt.Id);
 
 			modelBuilder.Entity<Problem>().HasData(
 				new Problem
@@ -61,40 +91,81 @@ namespace Backend.Data
 				new Tag
 				{
 					TagId = 1,
-					TagName = "Matematyka",
-					ProblemId = 1
+					TagName = "Matematyka"
 				}
 			);
 			modelBuilder.Entity<Tag>().HasData(
 				new Tag
 				{
 					TagId = 2,
-					TagName = "Programowanie",
-					ProblemId = 1
+					TagName = "Drzewo binarne"
 				}
 			);
 			modelBuilder.Entity<Tag>().HasData(
 				new Tag
 				{
 					TagId = 3,
-					TagName = "Programowanie",
-					ProblemId = 2
+					TagName = "Programowanie"
 				}
 			);
+
 			modelBuilder.Entity<Tag>().HasData(
 				new Tag
 				{
 					TagId = 4,
-					TagName = "Fizyka",
-					ProblemId = 2
+					TagName = "Fizyka"
 				}
 			);
 			modelBuilder.Entity<Tag>().HasData(
 				new Tag
 				{
 					TagId = 5,
-					TagName = "Programowanie Dynamiczne",
-					ProblemId = 3
+					TagName = "Programowanie Dynamiczne"
+				}
+			);
+
+			modelBuilder.Entity<ProblemTag>().HasData(
+				new ProblemTag
+				{
+					ProblemId = 1,
+					TagId = 1
+				}
+			);
+			modelBuilder.Entity<ProblemTag>().HasData(
+				new ProblemTag
+				{
+					ProblemId = 1,
+					TagId = 3
+				}
+			);
+			modelBuilder.Entity<ProblemTag>().HasData(
+				new ProblemTag
+				{
+					ProblemId = 1,
+					TagId = 5
+				}
+			);
+
+			modelBuilder.Entity<ProblemTag>().HasData(
+				new ProblemTag
+				{
+					ProblemId = 2,
+					TagId = 2
+				}
+			);
+			modelBuilder.Entity<ProblemTag>().HasData(
+				new ProblemTag
+				{
+					ProblemId = 2,
+					TagId = 4
+				}
+			);
+
+			modelBuilder.Entity<ProblemTag>().HasData(
+				new ProblemTag
+				{
+					ProblemId = 3,
+					TagId = 1
 				}
 			);
 		}
