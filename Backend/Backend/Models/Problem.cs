@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using Backend.Models.Joins;
 
 namespace Backend.Models
 {
@@ -14,20 +15,6 @@ namespace Backend.Models
         public string Difficulty { get; set; }
         public DateTime ReleaseDate { get; set; }
         public List<ProblemTag> ProblemTags { get; set; }
-    }
-
-    public class Tag
-    {
-        public int TagId { get; set; }
-        public string TagName { get; set; }
-        public List<ProblemTag> ProblemTags { get; set; }
-    }
-
-    public class ProblemTag
-    {
-        public int ProblemId { get; set; }
-        public Problem Problem { get; set; }
-        public int TagId { get; set; }
-        public Tag Tag { get; set; }
+        public List<ProblemUser> ProblemUsers { get; set; }
     }
 }

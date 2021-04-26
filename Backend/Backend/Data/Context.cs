@@ -1,20 +1,27 @@
 ﻿using System;
 using Backend.Models;
+using Backend.Models.Joins;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Data
 {
-	public class Context:DbContext
+	public class Context : IdentityDbContext
 	{
+		public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 		public DbSet<Problem> Problems { get; set; }
 		public DbSet<Tag> Tags { get; set; }
 		public DbSet<ProblemTag> ProblemTags { get; set; }
+		public DbSet<ProblemUser> ProblemUsers { get; set; }
+
 		public Context(DbContextOptions<Context> options) : base(options)
 		{
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+			base.OnModelCreating(modelBuilder);
+
 			modelBuilder.Entity<ProblemTag>()
 				.HasKey(pt => new {pt.ProblemId, pt.TagId});
 
@@ -27,6 +34,19 @@ namespace Backend.Data
 				.HasOne(pt => pt.Tag)
 				.WithMany(t => t.ProblemTags)
 				.HasForeignKey(pt => pt.TagId);
+
+			modelBuilder.Entity<ProblemUser>()
+				.HasKey(pt => new {pt.ProblemId, pt.Id});
+
+			modelBuilder.Entity<ProblemUser>()
+				.HasOne(pt => pt.Problem)
+				.WithMany(p => p.ProblemUsers)
+				.HasForeignKey(pt => pt.ProblemId);
+
+			modelBuilder.Entity<ProblemUser>()
+				.HasOne(pt => pt.ApplicationUser)
+				.WithMany(t => t.ProblemUsers)
+				.HasForeignKey(pt => pt.Id);
 
 			modelBuilder.Entity<Problem>().HasData(
 				new Problem
