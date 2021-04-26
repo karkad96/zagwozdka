@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {IProblem} from "../../models/problem";
+import {IAnswer, IProblem} from "../../models/problem";
 import {ActivatedRoute} from "@angular/router";
 import {ProblemService} from "../../shared/problem.service";
 import { Location } from '@angular/common';
@@ -15,11 +15,14 @@ import {ToastrService} from "ngx-toastr";
 })
 export class ProblemComponent implements OnInit {
 	problem?: IProblem
+	answer?: IAnswer
 	LoginStatus$! : Observable<boolean>;
 	formModel = new FormGroup({
 		Answer: new FormControl()
 	});
+
 	private readonly id: number;
+
 	constructor(
 		private route: ActivatedRoute,
 		private problemService: ProblemService,
@@ -32,12 +35,18 @@ export class ProblemComponent implements OnInit {
 
   	ngOnInit() {
 		this.getProblem();
+		this.getAnswer();
 		this.LoginStatus$ = this.loginService.isLoggedIn;
   	}
 
-	getProblem(): void {
+	getProblem() {
 		this.problemService.getProblem(this.id)
 			.subscribe(data => this.problem = data);
+	}
+
+	getAnswer() {
+		this.problemService.getAnswer(this.id)
+			.subscribe(data => this.answer = data);
 	}
 
 	onSubmit() {
@@ -48,6 +57,7 @@ export class ProblemComponent implements OnInit {
 					this.toastrService.success(
 						'Brawo! Udało Ci się rozwiązać zagwozdke!', 'Zagwozdka rozwiązana!');
 					this.problem!.isSolved = true;
+					this.getAnswer();
 				}
 				else {
 					this.toastrService.error(

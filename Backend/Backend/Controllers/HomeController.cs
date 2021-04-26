@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Backend.Data;
 using Backend.Models;
@@ -108,6 +107,29 @@ namespace Backend.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(new {response = true});
+        }
+
+        [HttpGet]
+        [Route("Answer/{id}")]
+        public async Task<object> GetAnswer(int id)
+        {
+            var userId = User.FindFirst("UserID")?.Value;
+            var answered = await _context.ProblemUsers.AnyAsync(pu => pu.Id == userId && pu.ProblemId == id);
+
+            if (!answered)
+            {
+                return Ok();
+            }
+
+            var answer = await _context.Problems
+                .Where(p => p.ProblemId == id)
+                .Select(p => p.Answer)
+                .FirstOrDefaultAsync();
+            var solvedDate = await _context.ProblemUsers
+                .Where(pu => pu.Id == userId && pu.ProblemId == id)
+                .Select(pu=>pu.SolvedDate).FirstOrDefaultAsync();
+
+            return Ok(new {answer, solvedDate});
         }
     }
 }

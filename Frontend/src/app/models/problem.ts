@@ -13,3 +13,8 @@ export interface ITag {
 	tagId: number
 	tagName: string
 }
+
+export interface IAnswer {
+	answer: string
+	solvedDate: string
+}

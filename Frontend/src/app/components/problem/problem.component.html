@@ -10,5 +10,9 @@
 			<button mat-stroked-button color="primary" class="btn-block">Odpowiedz</button>
 		</form>
 	</div>
+	<div fxLayout="column" *ngIf="(LoginStatus$ | async) && answer" class="center">
+		<p>Odpowiedź: {{answer.answer}}</p>
+		<p>Rozwiązano: {{answer.solvedDate}}</p>
+	</div>
 	<button (click)="goBack()">go back</button>
 </div>

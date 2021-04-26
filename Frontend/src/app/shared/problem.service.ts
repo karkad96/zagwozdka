@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {BehaviorSubject, Observable, of} from "rxjs";
-import {IProblem} from "../models/problem";
+import {IAnswer, IProblem} from "../models/problem";
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ProblemService {
 	private url: string = environment.baseUrl + '/Home';
-	private problemStatus = new BehaviorSubject<boolean>(false);
+
 	constructor(private httpClient: HttpClient) { }
 
 	getProblems(): Observable<IProblem[]> {
@@ -22,5 +22,9 @@ export class ProblemService {
 
 	postAnswer(id: number, body: any) {
 		return this.httpClient.post(this.url + '/' + id, body);
+	}
+
+	getAnswer(id: number): Observable<IAnswer> {
+		return this.httpClient.get<IAnswer>(this.url + '/Answer/' + id);
 	}
 }
