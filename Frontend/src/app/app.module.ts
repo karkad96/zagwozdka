@@ -12,23 +12,23 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { RegisterService } from "./shared/register.service";
 import { ToastrModule } from 'ngx-toastr';
 import { LoginService } from "./shared/login.service";
-import { HomeComponent } from './components/home/home.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import {ProblemService} from "./shared/problem.service";
 import {CdkTableModule} from "@angular/cdk/table";
 import { NavComponent } from './components/nav/nav.component';
 import { ProblemComponent } from './components/problem/problem.component';
+import { ProblemListComponent } from './components/problem-list/problem-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
 	  LoginComponent,
-	  HomeComponent,
 	  NavMenuComponent,
 	  NavComponent,
-	  ProblemComponent
+	  ProblemComponent,
+	  ProblemListComponent
   ],
 	imports: [
 		BrowserModule,

@@ -14,13 +14,13 @@ namespace Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HomeController : ControllerBase
+    public class ProblemController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly Context _context;
-        private ILogger<HomeController> _logger;
+        private ILogger<ProblemController> _logger;
 
-        public HomeController(UserManager<ApplicationUser> userManager, Context context, ILogger<HomeController> logger)
+        public ProblemController(UserManager<ApplicationUser> userManager, Context context, ILogger<ProblemController> logger)
         {
             _userManager = userManager;
             _context = context;

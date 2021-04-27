@@ -8,7 +8,7 @@ import {IAnswer, IProblem} from "../models/problem";
 	providedIn: 'root'
 })
 export class ProblemService {
-	private url: string = environment.baseUrl + '/Home';
+	private url: string = environment.baseUrl + '/Problem';
 
 	constructor(private httpClient: HttpClient) { }
 
