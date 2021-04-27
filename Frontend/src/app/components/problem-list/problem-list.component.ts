@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {ProblemService} from "../../shared/problem.service";
 import {IProblem} from "../../models/problem";
+import {ProblemService} from "../../shared/problem.service";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-problem-list',
+  templateUrl: './problem-list.component.html',
+  styleUrls: ['./problem-list.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class ProblemListComponent implements OnInit {
+
 	public problems: IProblem[] = []
 
 	constructor(private problemService: ProblemService) { }
