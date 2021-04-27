@@ -30,7 +30,7 @@
 		</ng-container>
 
 		<mat-header-row *matHeaderRowDef="['problemId', 'title', 'difficulty', 'solvedBy', 'releaseDate']"></mat-header-row>
-		<mat-row *matRowDef="let row; columns: ['problemId', 'title', 'difficulty', 'solvedBy', 'releaseDate']" [ngStyle]="{ background: (row.isSolved) ? '#D4EDC9':'' }"></mat-row>
+		<mat-row *matRowDef="let row; columns: ['problemId', 'title', 'difficulty', 'solvedBy', 'releaseDate']" [ngStyle]="{ background: (row.isSolved) ? '#D4EDC9' : '' }"></mat-row>
 	</mat-table>
 </div>
 

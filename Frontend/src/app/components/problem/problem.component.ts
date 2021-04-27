@@ -15,7 +15,6 @@ import {ToastrService} from "ngx-toastr";
 })
 export class ProblemComponent implements OnInit {
 	problem?: IProblem
-	answer?: IAnswer
 	LoginStatus$! : Observable<boolean>;
 	formModel = new FormGroup({
 		Answer: new FormControl()
@@ -35,7 +34,6 @@ export class ProblemComponent implements OnInit {
 
   	ngOnInit() {
 		this.getProblem();
-		this.getAnswer();
 		this.LoginStatus$ = this.loginService.isLoggedIn;
   	}
 
@@ -44,20 +42,16 @@ export class ProblemComponent implements OnInit {
 			.subscribe(data => this.problem = data);
 	}
 
-	getAnswer() {
-		this.problemService.getAnswer(this.id)
-			.subscribe(data => this.answer = data);
-	}
-
 	onSubmit() {
 		this.problemService.postAnswer(this.id, {Answer: this.formModel.value.Answer})
 			.subscribe(
 			(res: any) => {
-				if(res.response) {
+				console.log(res);
+				if(res) {
 					this.toastrService.success(
 						'Brawo! Udało Ci się rozwiązać zagwozdke!', 'Zagwozdka rozwiązana!');
 					this.problem!.isSolved = true;
-					this.getAnswer();
+					this.problem!.result = {answer: res.answer, solvedDate: res.solvedDate}
 				}
 				else {
 					this.toastrService.error(

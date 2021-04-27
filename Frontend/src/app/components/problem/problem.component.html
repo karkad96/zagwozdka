@@ -4,15 +4,15 @@
 	<div>
 		<p>{{problem.description}}</p>
 	</div>
-	<div fxLayout="row" *ngIf="(LoginStatus$ | async) && !problem.isSolved" class="center">
+	<div fxLayout="row" *ngIf="(LoginStatus$ | async) && !problem.result" class="center">
 		<form [formGroup]="formModel" (ngSubmit)="onSubmit()" autocomplete="off">
 			<input matInput placeholder="Odpowiedź" formControlName="Answer">
 			<button mat-stroked-button color="primary" class="btn-block">Odpowiedz</button>
 		</form>
 	</div>
-	<div fxLayout="column" *ngIf="(LoginStatus$ | async) && answer" class="center">
-		<p>Odpowiedź: {{answer.answer}}</p>
-		<p>Rozwiązano: {{answer.solvedDate}}</p>
+	<div fxLayout="column" *ngIf="(LoginStatus$ | async) && problem.result" class="center">
+		<p>Odpowiedź: {{problem.result.answer}}</p>
+		<p>Rozwiązano: {{problem.result.solvedDate}}</p>
 	</div>
 	<button (click)="goBack()">go back</button>
 </div>

@@ -57,7 +57,7 @@ namespace Backend.Controllers
         [Route("{id}")]
         public async Task<object> GetProblem(int id)
         {
-            var userId = User.FindFirst("UserID")?.Value;
+            var result = await GetAnswer(id);
             var problem = await _context.Problems
                 .Select(p => new
                     {
@@ -72,8 +72,7 @@ namespace Backend.Controllers
                             tagId = t.TagId,
                             tagName = t.TagName
                         }),
-                        isSolved = p.ProblemUsers
-                        .Any(pu => pu.Id == userId && pu.ProblemId == p.ProblemId)
+                        result
                     })
                 .SingleOrDefaultAsync(p=> p.problemId == id);
 
@@ -92,44 +91,47 @@ namespace Backend.Controllers
 
             if (realAnswer != answer.Answer)
             {
-                return Ok(new {response = false});
+                return Ok();
             }
 
             var userId = User.Claims.First(claim => claim.Type == "UserID").Value;
+            var solvedDate = DateTime.Now;
             var solved = new ProblemUser
             {
                 ProblemId = id,
                 Id = userId,
-                SolvedDate = DateTime.Now
+                SolvedDate = solvedDate
             };
 
             await _context.ProblemUsers.AddAsync(solved);
             await _context.SaveChangesAsync();
 
-            return Ok(new {response = true});
+            return Ok(new {answer = realAnswer, solvedDate});
         }
 
-        [HttpGet]
-        [Route("Answer/{id}")]
-        public async Task<object> GetAnswer(int id)
+        private async Task<object?> GetAnswer(int id)
         {
             var userId = User.FindFirst("UserID")?.Value;
-            var answered = await _context.ProblemUsers.AnyAsync(pu => pu.Id == userId && pu.ProblemId == id);
-
-            if (!answered)
+            var isSolved = await _context.ProblemUsers.AnyAsync(pu => pu.Id == userId && pu.ProblemId == id);
+            object? result = null;
+            if (isSolved)
             {
-                return Ok();
+                var answer = await _context.Problems
+                    .Where(p => p.ProblemId == id)
+                    .Select(p => p.Answer)
+                    .FirstOrDefaultAsync();
+                var solvedDate = await _context.ProblemUsers
+                    .Where(pu => pu.ProblemId == id && pu.Id == userId)
+                    .Select(pu => pu.SolvedDate)
+                    .FirstOrDefaultAsync();
+                result = new
+                {
+                    answer,
+                    solvedDate
+                };
             }
 
-            var answer = await _context.Problems
-                .Where(p => p.ProblemId == id)
-                .Select(p => p.Answer)
-                .FirstOrDefaultAsync();
-            var solvedDate = await _context.ProblemUsers
-                .Where(pu => pu.Id == userId && pu.ProblemId == id)
-                .Select(pu=>pu.SolvedDate).FirstOrDefaultAsync();
-
-            return Ok(new {answer, solvedDate});
+            return result;
         }
     }
 }

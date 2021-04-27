@@ -23,8 +23,4 @@ export class ProblemService {
 	postAnswer(id: number, body: any) {
 		return this.httpClient.post(this.url + '/' + id, body);
 	}
-
-	getAnswer(id: number): Observable<IAnswer> {
-		return this.httpClient.get<IAnswer>(this.url + '/Answer/' + id);
-	}
 }

@@ -7,6 +7,7 @@ export interface IProblem {
 	releaseDate: string
 	tags: Array<ITag>
 	isSolved: boolean
+	result: IAnswer
 }
 
 export interface ITag {
