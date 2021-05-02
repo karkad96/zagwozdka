@@ -1,0 +1,78 @@
+<mat-card class="center space" style="margin-top: 10px">
+	<form [formGroup]="detailsFormModel" class="example-form">
+		<label><strong>Informacje podstawowe: </strong></label>
+		<mat-form-field class="example-full-width">
+			<mat-label>Nazwa użytkownika</mat-label>
+			<input matInput formControlName="UserName" [errorStateMatcher]="matcher">
+			<mat-error *ngIf="detailsFormModel.get('UserName')?.hasError('required')">
+				To pole jest <strong>wymagane</strong>
+			</mat-error>
+		</mat-form-field>
+		<mat-form-field class="example-full-width">
+			<mat-label>Email</mat-label>
+			<input type="email" matInput formControlName="Email" [errorStateMatcher]="matcher"
+				   placeholder="Np. zagw@przyklad.com">
+			<mat-error *ngIf="detailsFormModel.get('Email')?.hasError('email') && !detailsFormModel.get('Email')?.hasError('required')">
+				Niepoprawny adres email
+			</mat-error>
+			<mat-error *ngIf="detailsFormModel.get('Email')?.hasError('required')">
+				To pole jest <strong>wymagane</strong>
+			</mat-error>
+		</mat-form-field>
+		<button mat-stroked-button color="primary" class="btn-block">Aktualizuj</button>
+	</form>
+</mat-card>
+
+<mat-card class="center space">
+	<form [formGroup]="passwordFormModel" class="example-form">
+		<label><strong>Utwórz nowe hasło: </strong></label>
+		<mat-form-field class="example-full-width">
+			<mat-label>Nowe hasło</mat-label>
+			<input type="password" matInput formControlName="Password" [errorStateMatcher]="matcher">
+			<mat-error *ngIf="passwordFormModel.get('Password')?.hasError('required')">
+				To pole jest <strong>wymagane</strong>
+			</mat-error>
+		</mat-form-field>
+		<mat-form-field class="example-full-width">
+			<mat-label>Powtórz nowe hasło</mat-label>
+			<input type="password" matInput formControlName="ConfirmPassword" [errorStateMatcher]="matcher">
+			<mat-error *ngIf="passwordFormModel.get('ConfirmPassword')?.hasError('required')">
+				To pole jest <strong>wymagane</strong>
+			</mat-error>
+			<mat-error *ngIf="passwordFormModel.get('ConfirmPassword')?.hasError('passwordMismatch')">
+				Podane hasła się nie zgadzają
+			</mat-error>
+		</mat-form-field>
+		<button mat-stroked-button color="primary" class="btn-block">Aktualizuj</button>
+	</form>
+</mat-card>
+
+<mat-card class="center space">
+	<form [formGroup]="languageFormControl" autocomplete="off" (ngSubmit)="onSubmit()" class="example-form">
+		<label><strong>Informacje dodatkowe: </strong></label>
+		<mat-form-field class="example-full-width">
+			<mat-label>Wybierz język programowania</mat-label>
+			<mat-select formControlName="language">
+				<mat-option></mat-option>
+				<mat-option
+					*ngFor="let language of languages"
+					[value]="language">
+					{{ language }}
+				</mat-option>
+			</mat-select>
+		</mat-form-field><br/>
+		<button mat-stroked-button color="primary" class="btn-block">Aktualizuj</button>
+	</form>
+</mat-card>
+
+<mat-card class="center">
+	<form [formGroup]="optionsFormModel" autocomplete="off" (ngSubmit)="onSubmit()" class="example-form">
+		<label><strong>Co chcesz zrobić? </strong></label>
+		<mat-radio-group aria-label="Select an option" class="example-radio-group" formControlName="options">
+			<mat-radio-button value="1" class="example-radio-button" color="primary">Zresetuj swój postęp</mat-radio-button>
+			<mat-radio-button value="2" class="example-radio-button" color="primary">Usuń konto</mat-radio-button>
+			<mat-radio-button value="3" class="example-radio-button" color="primary">Nic nie rób</mat-radio-button>
+		</mat-radio-group>
+		<button mat-stroked-button color="primary" class="btn-block">Aktualizuj</button>
+	</form>
+</mat-card>

@@ -1,12 +1,15 @@
-<div *ngIf="problem" class="center">
+<mat-card *ngIf="problem" class="center">
 	<h2>{{problem.title | uppercase}}</h2>
 	<div><b>Zagwozdka {{problem.problemId}}</b></div>
 	<div>
 		<p>{{problem.description}}</p>
 	</div>
 	<div fxLayout="row" *ngIf="(LoginStatus$ | async) && !problem.result" class="center">
-		<form [formGroup]="formModel" (ngSubmit)="onSubmit()" autocomplete="off">
-			<input matInput placeholder="Odpowiedź" formControlName="Answer">
+		<form [formGroup]="formModel" (ngSubmit)="onSubmit()" autocomplete="off" class="example-form">
+			<mat-form-field class="example-full-width">
+				<mat-label>Podaj odpowiedź</mat-label>
+				<input matInput placeholder="Odpowiedź" formControlName="Answer">
+			</mat-form-field>
 			<button mat-stroked-button color="primary" class="btn-block">Odpowiedz</button>
 		</form>
 	</div>
@@ -15,4 +18,4 @@
 		<p>Rozwiązano: {{problem.result.solvedDate}}</p>
 	</div>
 	<button (click)="goBack()">go back</button>
-</div>
+</mat-card>

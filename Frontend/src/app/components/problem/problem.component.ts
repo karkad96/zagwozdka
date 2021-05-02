@@ -46,7 +46,6 @@ export class ProblemComponent implements OnInit {
 		this.problemService.postAnswer(this.id, {Answer: this.formModel.value.Answer})
 			.subscribe(
 			(res: any) => {
-				console.log(res);
 				if(res) {
 					this.toastrService.success(
 						'Brawo! Udało Ci się rozwiązać zagwozdke!', 'Zagwozdka rozwiązana!');
