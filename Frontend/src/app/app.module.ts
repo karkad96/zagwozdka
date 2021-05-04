@@ -21,6 +21,7 @@ import { ProblemComponent } from './components/problem/problem.component';
 import { ProblemListComponent } from './components/problem-list/problem-list.component';
 import { AccountComponent } from './components/account/account.component';
 import {AccountService} from "./shared/account.service";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {AccountService} from "./shared/account.service";
 		ReactiveFormsModule,
 		BrowserAnimationsModule,
 		HttpClientModule,
+		MatInputModule,
 		ToastrModule.forRoot({
 			progressBar: true
 		}),

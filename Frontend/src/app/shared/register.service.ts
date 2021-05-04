@@ -34,7 +34,6 @@ export class RegisterService {
 			Email: this.formModel.value.Email,
 			Password: this.formModel.value.Passwords.Password
 		};
-		console.log(body);
 		return this.httpClient.post(environment.baseUrl + '/ApplicationUser/Register', body);
 	}
 }

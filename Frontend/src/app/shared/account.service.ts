@@ -20,4 +20,24 @@ export class AccountService {
 	getLanguages(): Observable<any> {
 		return this.httpClient.get('assets/languages.json');
 	}
+
+	putBasicInfo(body: any): Observable<any> {
+		return this.httpClient.put(this.url + '/BasicInfo', body);
+	}
+
+	putPassword(body: any): Observable<any> {
+		return this.httpClient.put(this.url + '/Password', body);
+	}
+
+	putExtraInfo(body: any): Observable<any> {
+		return this.httpClient.put(this.url + '/ExtraInfo', body);
+	}
+
+	deleteUser(): Observable<any> {
+		return this.httpClient.delete(this.url + '/DeleteUser');
+	}
+
+	deleteProgress(): Observable<any> {
+		return this.httpClient.delete(this.url + '/DeleteProgress');
+	}
 }
