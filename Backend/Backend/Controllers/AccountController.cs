@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -19,13 +20,16 @@ namespace Backend.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly Context _context;
-        private ILogger<AccountController> _logger;
+        private readonly ILogger<AccountController> _logger;
+        private readonly string _image;
 
         public AccountController(UserManager<ApplicationUser> userManager, Context context, ILogger<AccountController> logger)
         {
             _userManager = userManager;
             _context = context;
             _logger = logger;
+            var b = System.IO.File.ReadAllBytes("../Backend/Data/Images/blank.png");
+            _image = Convert.ToBase64String(b, 0, b.Length);
         }
 
         [HttpGet]
@@ -33,6 +37,10 @@ namespace Backend.Controllers
         public async Task<object> GetAccount()
         {
             var userId = User.Claims.First(claim => claim.Type == "UserID").Value;
+            var image = await _context.ApplicationUsers
+                .Where(u => u.Id == userId)
+                .Select(u => u.Image)
+                .SingleOrDefaultAsync() ?? _image;
             var details = await _context.ApplicationUsers
                 .Where(u => u.Id == userId)
                 .Select(u => new
@@ -40,14 +48,27 @@ namespace Backend.Controllers
                     userName = u.UserName,
                     email = u.Email,
                     programmingLanguage = u.ProgramingLanguage,
-                    extraInfo = u.ExtraInfo
+                    extraInfo = u.ExtraInfo,
+                    image
                 }).SingleOrDefaultAsync();
 
-            var b = await System.IO.File.ReadAllBytesAsync("../Backend/Data/Images/blank.png");
+            return Ok(details);
+        }
 
-            return Ok(new {details.userName, details.email,
-                details.programmingLanguage, details.extraInfo,
-                image = File(b, "image/png").FileContents});
+        [HttpPost]
+        [Authorize]
+        public async Task<object> PostImage(Image image)
+        {
+            var userId = User.Claims.First(claim => claim.Type == "UserID").Value;
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user != null)
+            {
+                user.Image = image.Base64Image;
+                await _userManager.UpdateAsync(user);
+            }
+
+            return Ok(HttpStatusCode.OK);
         }
 
         [HttpPut]
@@ -56,13 +77,13 @@ namespace Backend.Controllers
         public async Task<object> PutBasicInfo(BasicInfo model)
         {
             var userId = User.Claims.First(claim => claim.Type == "UserID").Value;
-            var entity = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            var user = await _userManager.FindByIdAsync(userId);
 
-            if (entity != null)
+            if (user != null)
             {
-                entity.UserName = model.UserName;
-                entity.Email = model.Email;
-                await _context.SaveChangesAsync();
+                user.UserName = model.UserName;
+                user.Email = model.Email;
+                await _userManager.UpdateAsync(user);
             }
 
             return Ok(HttpStatusCode.OK);
@@ -148,5 +169,10 @@ namespace Backend.Controllers
     {
         public string ProgrammingLanguage { get; set; }
         public string ExtraInfo { get; set; }
+    }
+
+    public class Image
+    {
+        public string Base64Image { get; set; }
     }
 }

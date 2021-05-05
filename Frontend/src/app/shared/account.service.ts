@@ -21,6 +21,10 @@ export class AccountService {
 		return this.httpClient.get('assets/languages.json');
 	}
 
+	postImage(body: any): Observable<any> {
+		return this.httpClient.post(this.url, body);
+	}
+
 	putBasicInfo(body: any): Observable<any> {
 		return this.httpClient.put(this.url + '/BasicInfo', body);
 	}

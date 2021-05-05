@@ -118,6 +118,18 @@ export class AccountComponent implements OnInit {
 
 	onImagePost() {
 		this.image = 'data:image/png;base64,' + this.base64textString;
+
+		this.accountService.postImage({Base64Image: this.base64textString})
+			.subscribe((res: any) => {
+				if(res == 200) {
+					this.toastrService.success(
+						'Aktualizacja danych powiodła się!', 'Aktualizacja pomyślna!');
+				}
+				else {
+					this.toastrService.error(
+						'Coś poszło nie tak...', 'Aktualizacja danych niepomyśla');
+				}
+			});
 	}
 
 	onBasicUpdate() {
