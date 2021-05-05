@@ -13,4 +13,7 @@
 	<span class="nav-tool-items" *ngIf="(LoginStatus$ | async) as LoginStatus">
     	<a mat-button mat-raised-button (click)="onLogout()" *ngIf="LoginStatus">Wyloguj się</a>
 	</span>
+	<span class="nav-tool-items" *ngIf="(LoginStatus$ | async) as LoginStatus">
+    	<a mat-button routerLink="account" routerLinkActive="active" *ngIf="LoginStatus">Konto</a>
+	</span>
 </mat-toolbar>

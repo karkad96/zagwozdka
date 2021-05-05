@@ -3,14 +3,16 @@ using System;
 using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20210504121200_AddAdditionalFieldsInUserTable")]
+    partial class AddAdditionalFieldsInUserTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -120,7 +122,7 @@ namespace Backend.Data.Migrations
                             Answer = "128754612",
                             Description = "Test 1",
                             Difficulty = "Łatwy",
-                            ReleaseDate = new DateTime(2021, 5, 4, 18, 47, 10, 336, DateTimeKind.Local).AddTicks(4232),
+                            ReleaseDate = new DateTime(2021, 5, 4, 14, 11, 59, 726, DateTimeKind.Local).AddTicks(6435),
                             SolvedBy = 112,
                             Title = "Problem 1"
                         },
@@ -130,7 +132,7 @@ namespace Backend.Data.Migrations
                             Answer = "5272",
                             Description = "Test 2",
                             Difficulty = "Normalny",
-                            ReleaseDate = new DateTime(2021, 5, 4, 18, 47, 10, 341, DateTimeKind.Local).AddTicks(3273),
+                            ReleaseDate = new DateTime(2021, 5, 4, 14, 11, 59, 732, DateTimeKind.Local).AddTicks(123),
                             SolvedBy = 52,
                             Title = "Problem 2"
                         },
@@ -140,7 +142,7 @@ namespace Backend.Data.Migrations
                             Answer = "234677892",
                             Description = "Test 3",
                             Difficulty = "Trudny",
-                            ReleaseDate = new DateTime(2021, 5, 4, 18, 47, 10, 341, DateTimeKind.Local).AddTicks(3436),
+                            ReleaseDate = new DateTime(2021, 5, 4, 14, 11, 59, 732, DateTimeKind.Local).AddTicks(360),
                             SolvedBy = 12,
                             Title = "Problem 3"
                         });
@@ -391,10 +393,6 @@ namespace Backend.Data.Migrations
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
                     b.Property<string>("ExtraInfo")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

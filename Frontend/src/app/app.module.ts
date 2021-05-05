@@ -19,6 +19,9 @@ import {CdkTableModule} from "@angular/cdk/table";
 import { NavComponent } from './components/nav/nav.component';
 import { ProblemComponent } from './components/problem/problem.component';
 import { ProblemListComponent } from './components/problem-list/problem-list.component';
+import { AccountComponent } from './components/account/account.component';
+import {AccountService} from "./shared/account.service";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -28,7 +31,8 @@ import { ProblemListComponent } from './components/problem-list/problem-list.com
 	  NavMenuComponent,
 	  NavComponent,
 	  ProblemComponent,
-	  ProblemListComponent
+	  ProblemListComponent,
+	  AccountComponent,
   ],
 	imports: [
 		BrowserModule,
@@ -39,6 +43,7 @@ import { ProblemListComponent } from './components/problem-list/problem-list.com
 		ReactiveFormsModule,
 		BrowserAnimationsModule,
 		HttpClientModule,
+		MatInputModule,
 		ToastrModule.forRoot({
 			progressBar: true
 		}),
@@ -46,6 +51,7 @@ import { ProblemListComponent } from './components/problem-list/problem-list.com
 	],
   providers: [
   	ProblemService,
+	  AccountService,
   	RegisterService,
 	  LoginService,
 	  {

@@ -8,5 +8,8 @@ using Microsoft.AspNetCore.Identity;
 	public class ApplicationUser: IdentityUser
 	{
 		public List<ProblemUser> ProblemUsers { get; set; }
+		public string ProgramingLanguage { get; set; }
+		public string ExtraInfo { get; set; }
+		public string Image { get; set; }
 	}
 }

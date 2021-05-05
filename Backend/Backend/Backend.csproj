@@ -30,4 +30,8 @@
         <PackageReference Include="NSwag.AspNetCore" Version="13.10.7" />
         <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="5.1.30" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Data\Images" />
+    </ItemGroup>
 </Project>

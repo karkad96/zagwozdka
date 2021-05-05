@@ -10,7 +10,7 @@ import { Observable } from "rxjs";
 export class NavMenuComponent implements OnInit {
 	constructor(private loginService : LoginService) { }
 
-	LoginStatus$! : Observable<boolean>;
+	LoginStatus$!: Observable<boolean>;
 	@Output() toggleSidenav = new EventEmitter<void>();
 
 	ngOnInit() {
