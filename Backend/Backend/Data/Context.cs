@@ -13,6 +13,8 @@ namespace Backend.Data
 		public DbSet<Tag> Tags { get; set; }
 		public DbSet<ProblemTag> ProblemTags { get; set; }
 		public DbSet<ProblemUser> ProblemUsers { get; set; }
+		public DbSet<Post> Posts { get; set; }
+		public DbSet<PostUser> PostUsers { get; set; }
 
 		public Context(DbContextOptions<Context> options) : base(options)
 		{
@@ -47,6 +49,29 @@ namespace Backend.Data
 				.HasOne(pt => pt.ApplicationUser)
 				.WithMany(t => t.ProblemUsers)
 				.HasForeignKey(pt => pt.Id);
+
+			modelBuilder.Entity<Problem>()
+				.HasMany(p => p.Posts)
+				.WithOne(p => p.Problem)
+				.HasForeignKey(p => p.ProblemId);
+
+			modelBuilder.Entity<ApplicationUser>()
+				.HasMany(au => au.Posts)
+				.WithOne(p => p.ApplicationUser)
+				.HasForeignKey(p => p.UserId);
+
+			modelBuilder.Entity<PostUser>()
+				.HasKey(pt => new {pt.PostId, pt.UserId});
+
+			modelBuilder.Entity<PostUser>()
+				.HasOne(pu => pu.Post)
+				.WithMany(p => p.PostUsers)
+				.HasForeignKey(pt => pt.PostId);
+
+			modelBuilder.Entity<PostUser>()
+				.HasOne(pu => pu.ApplicationUser)
+				.WithMany(t => t.PostUsers)
+				.HasForeignKey(pt => pt.UserId);
 
 			modelBuilder.Entity<Problem>().HasData(
 				new Problem

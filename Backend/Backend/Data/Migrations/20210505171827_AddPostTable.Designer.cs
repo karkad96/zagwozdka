@@ -3,36 +3,20 @@ using System;
 using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20210505171827_AddPostTable")]
+    partial class AddPostTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.3");
-
-            modelBuilder.Entity("Backend.Models.Joins.PostUser", b =>
-                {
-                    b.Property<int>("PostId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Likes")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("PostId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("PostUsers");
-                });
 
             modelBuilder.Entity("Backend.Models.Joins.ProblemTag", b =>
                 {
@@ -105,14 +89,16 @@ namespace Backend.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Likes")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("PostDate")
+                    b.Property<string>("Likes")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("ProblemId")
@@ -124,9 +110,9 @@ namespace Backend.Data.Migrations
 
                     b.HasKey("PostId");
 
-                    b.HasIndex("ProblemId");
+                    b.HasIndex("ApplicationUserId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ProblemId");
 
                     b.ToTable("Posts");
                 });
@@ -170,7 +156,7 @@ namespace Backend.Data.Migrations
                             Answer = "128754612",
                             Description = "Test 1",
                             Difficulty = "Łatwy",
-                            ReleaseDate = new DateTime(2021, 5, 15, 15, 31, 38, 1, DateTimeKind.Local).AddTicks(722),
+                            ReleaseDate = new DateTime(2021, 5, 5, 19, 18, 26, 647, DateTimeKind.Local).AddTicks(9074),
                             SolvedBy = 112,
                             Title = "Problem 1"
                         },
@@ -180,7 +166,7 @@ namespace Backend.Data.Migrations
                             Answer = "5272",
                             Description = "Test 2",
                             Difficulty = "Normalny",
-                            ReleaseDate = new DateTime(2021, 5, 15, 15, 31, 38, 5, DateTimeKind.Local).AddTicks(9596),
+                            ReleaseDate = new DateTime(2021, 5, 5, 19, 18, 26, 652, DateTimeKind.Local).AddTicks(9239),
                             SolvedBy = 52,
                             Title = "Problem 2"
                         },
@@ -190,7 +176,7 @@ namespace Backend.Data.Migrations
                             Answer = "234677892",
                             Description = "Test 3",
                             Difficulty = "Trudny",
-                            ReleaseDate = new DateTime(2021, 5, 15, 15, 31, 38, 5, DateTimeKind.Local).AddTicks(9757),
+                            ReleaseDate = new DateTime(2021, 5, 5, 19, 18, 26, 652, DateTimeKind.Local).AddTicks(9401),
                             SolvedBy = 12,
                             Title = "Problem 3"
                         });
@@ -455,25 +441,6 @@ namespace Backend.Data.Migrations
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
-            modelBuilder.Entity("Backend.Models.Joins.PostUser", b =>
-                {
-                    b.HasOne("Backend.Models.Post", "Post")
-                        .WithMany("PostUsers")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Backend.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany("PostUsers")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
-
-                    b.Navigation("Post");
-                });
-
             modelBuilder.Entity("Backend.Models.Joins.ProblemTag", b =>
                 {
                     b.HasOne("Backend.Models.Problem", "Problem")
@@ -514,15 +481,15 @@ namespace Backend.Data.Migrations
 
             modelBuilder.Entity("Backend.Models.Post", b =>
                 {
-                    b.HasOne("Backend.Models.Problem", "Problem")
+                    b.HasOne("Backend.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Posts")
-                        .HasForeignKey("ProblemId")
+                        .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Backend.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("Backend.Models.Problem", "Problem")
                         .WithMany("Posts")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("ProblemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -582,11 +549,6 @@ namespace Backend.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Backend.Models.Post", b =>
-                {
-                    b.Navigation("PostUsers");
-                });
-
             modelBuilder.Entity("Backend.Models.Problem", b =>
                 {
                     b.Navigation("Posts");
@@ -604,8 +566,6 @@ namespace Backend.Data.Migrations
             modelBuilder.Entity("Backend.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Posts");
-
-                    b.Navigation("PostUsers");
 
                     b.Navigation("ProblemUsers");
                 });

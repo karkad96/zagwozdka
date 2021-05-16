@@ -16,10 +16,6 @@ namespace Backend.Models
         public DateTime ReleaseDate { get; set; }
         public List<ProblemTag> ProblemTags { get; set; }
         public List<ProblemUser> ProblemUsers { get; set; }
-    }
-
-    public class Result
-    {
-        public string Answer { get; set; }
+        public List<Post> Posts { get; set; }
     }
 }

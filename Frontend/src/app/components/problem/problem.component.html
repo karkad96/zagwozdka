@@ -17,5 +17,13 @@
 		<p>Odpowiedź: {{problem.result.answer}}</p>
 		<p>Rozwiązano: {{problem.result.solvedDate}}</p>
 	</div>
-	<button (click)="goBack()">go back</button>
+	<a mat-button
+	   mat-raised-button
+	   routerLink="/problem-thread/{{id}}"
+	   routerLinkActive="active"
+	   *ngIf="(LoginStatus$ | async) && problem.result"
+	   style="margin-bottom: 7px">
+		Przejdź do dyskusji
+	</a><br/>
+	<button mat-stroked-button color="primary" (click)="goBack()">Cofnij</button>
 </mat-card>

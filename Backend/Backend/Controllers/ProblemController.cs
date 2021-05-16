@@ -133,5 +133,10 @@ namespace Backend.Controllers
 
             return result;
         }
+
+        public class Result
+        {
+            public string Answer { get; set; }
+        }
     }
 }

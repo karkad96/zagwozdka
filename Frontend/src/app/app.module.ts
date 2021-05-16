@@ -22,6 +22,8 @@ import { ProblemListComponent } from './components/problem-list/problem-list.com
 import { AccountComponent } from './components/account/account.component';
 import {AccountService} from "./shared/account.service";
 import {MatInputModule} from "@angular/material/input";
+import { ProblemThreadComponent } from './components/problem-thread/problem-thread.component';
+import {ThreadService} from "./shared/thread.service";
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import {MatInputModule} from "@angular/material/input";
 	  ProblemComponent,
 	  ProblemListComponent,
 	  AccountComponent,
+	  ProblemThreadComponent,
   ],
 	imports: [
 		BrowserModule,
@@ -52,6 +55,7 @@ import {MatInputModule} from "@angular/material/input";
   providers: [
   	ProblemService,
 	  AccountService,
+	  ThreadService,
   	RegisterService,
 	  LoginService,
 	  {

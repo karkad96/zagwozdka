@@ -1,0 +1,18 @@
+<mat-card *ngFor="let post of posts" class="center" style="background-color: powderblue">
+	<div style="overflow: hidden;">
+		<div style="float: left">
+			{{post.userName}}
+			{{post.programmingLanguage}}
+		</div>
+		<div style="float: right">
+			<button mat-button (click)="onLike(post.postId)" [disabled]="post.isLiked || post.isOwner">
+				<mat-icon color="primary">thumb_up</mat-icon>
+			</button>
+			{{post.likes}}
+		</div>
+	</div>
+	<mat-card style="margin: 0 -16px -16px -16px">
+		{{post.content}}
+	</mat-card>
+</mat-card>
+

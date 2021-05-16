@@ -113,7 +113,10 @@ body {
 }
 
 #toast-container > div {
-	margin-top: 64px;
 	opacity: 1;
+}
+
+#toast-container:first-child {
+	margin-top: 64px;
 }
 
