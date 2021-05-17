@@ -4,6 +4,7 @@ export interface IPost {
 	likes: number
 	userName: string
 	programmingLanguage: string
+	postDate: string
 	isOwner: boolean
 	isLiked: boolean
 }

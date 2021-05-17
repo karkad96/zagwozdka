@@ -1,22 +1,38 @@
-<mat-card *ngFor="let post of posts" class="center" style="background-color: powderblue">
-	<div style="overflow: hidden;">
-		<div style="float: left">
-			{{post.userName}}
-			{{post.programmingLanguage}}
-		</div>
-		<div style="float: right">
-			<button mat-button (click)="onLike(post.postId)" [disabled]="post.isOwner">
-				<mat-icon *ngIf="!post.isLiked">thumb_up</mat-icon>
-				<mat-icon *ngIf="post.isLiked" color="primary">thumb_up</mat-icon>
-			</button>
-			{{post.likes}}
-		</div>
+<div *ngFor="let post of posts">
+	<div class="center-actions" style=" text-align: right; overflow: hidden">
+		<a href="" *ngIf="post.isOwner">
+			Edytuj
+		</a>
+		&nbsp;
+		<a href="" *ngIf="post.isOwner">
+			Usuń
+		</a>
+		&nbsp;
+		<a href="">
+			Zgłoś
+		</a>
+		&nbsp;
+		<button mat-button (click)="onLike(post.postId)" [disabled]="post.isOwner">
+			<mat-icon *ngIf="!post.isLiked">thumb_up</mat-icon>
+			<mat-icon *ngIf="post.isLiked" color="primary">thumb_up</mat-icon>
+		</button>
+		{{post.likes}}
 	</div>
-	<mat-card style="margin: 0 -16px -16px -16px">
-		{{post.content}}
+	<mat-card style="background-color: powderblue" class="center">
+		<div style="overflow: hidden; margin: -5px 0 6px 0">
+			<div style="float: left">
+				{{post.userName}}
+				{{post.programmingLanguage}}
+			</div>
+			<div style="float: right">
+				{{post.postDate}}
+			</div>
+		</div>
+		<mat-card style="margin: 0 -16px -16px -16px">
+			{{post.content}}
+		</mat-card>
 	</mat-card>
-</mat-card>
-
+</div>
 <mat-card class="center">
 	<form [formGroup]="postFormModel" (ngSubmit)="onAddPost()" autocomplete="off" class="example-form">
 		<mat-form-field style="width: 100%">

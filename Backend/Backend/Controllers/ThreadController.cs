@@ -46,6 +46,7 @@ namespace Backend.Controllers
                     likes = p.Likes,
                     userName = p.ApplicationUser.UserName,
                     programmingLanguage = p.ApplicationUser.ProgramingLanguage,
+                    postDate = p.PostDate,
                     isOwner = p.UserId == userId,
                     isLiked = p.PostUsers
                         .Any(pu => pu.UserId == userId)
