@@ -68,17 +68,54 @@ namespace Backend.Controllers
                 Likes = 1
             };
 
-            await _context.PostUsers.AddAsync(entry);
+            var liked = like.liked ? 1 : -1;
+
+            if (like.liked)
+            {
+                await _context.PostUsers.AddAsync(entry);
+            }
+            else
+            {
+                _context.PostUsers.Remove(entry);
+            }
+
             await _context.Posts.Where(p => p.PostId == like.postId)
-                .UpdateAsync(p => new Post { Likes = p.Likes + 1 });
+                .UpdateAsync(p => new Post { Likes = p.Likes + liked });
             await _context.SaveChangesAsync();
 
             return Ok();
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("{id}/Post")]
+        public async Task<object> PostPost(int id, PostModel post)
+        {
+            var userId = User.Claims.First(claim => claim.Type == "UserID").Value;
+            var entry = new Post
+            {
+                UserId = userId,
+                ProblemId = id,
+                Content = post.Content,
+                Likes = 0,
+                PostDate = DateTime.Now
+            };
+
+            await _context.Posts.AddAsync(entry);
+            await _context.SaveChangesAsync();
+
+            return GetPosts(id).Result;
         }
     }
 
     public class Like
     {
         public int postId { get; set; }
+        public bool liked { get; set; }
+    }
+
+    public class PostModel
+    {
+        public string Content { get; set; }
     }
 }

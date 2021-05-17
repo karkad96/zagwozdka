@@ -21,4 +21,8 @@ export class ThreadService {
 	postLike(id: number, body: any) {
 		return this.httpClient.post(this.url + '/' + id, body);
 	}
+
+	postPost(id: number, body: any): Observable<IPost[]>  {
+		return this.httpClient.post<IPost[]>(this.url + '/' + id + '/Post', body);
+	}
 }

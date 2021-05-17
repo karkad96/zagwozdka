@@ -5,8 +5,9 @@
 			{{post.programmingLanguage}}
 		</div>
 		<div style="float: right">
-			<button mat-button (click)="onLike(post.postId)" [disabled]="post.isLiked || post.isOwner">
-				<mat-icon color="primary">thumb_up</mat-icon>
+			<button mat-button (click)="onLike(post.postId)" [disabled]="post.isOwner">
+				<mat-icon *ngIf="!post.isLiked">thumb_up</mat-icon>
+				<mat-icon *ngIf="post.isLiked" color="primary">thumb_up</mat-icon>
 			</button>
 			{{post.likes}}
 		</div>
@@ -16,3 +17,16 @@
 	</mat-card>
 </mat-card>
 
+<mat-card class="center">
+	<form [formGroup]="postFormModel" (ngSubmit)="onAddPost()" autocomplete="off" class="example-form">
+		<mat-form-field style="width: 100%">
+			<mat-label>Nowy post</mat-label>
+			<textarea matInput
+					  cdkTextareaAutosize
+					  cdkAutosizeMinRows="1"
+					  formControlName="Content">
+			</textarea>
+		</mat-form-field>
+		<button mat-stroked-button color="primary" class="btn-block" style="float: right">Dodaj nowy post</button>
+	</form>
+</mat-card>
