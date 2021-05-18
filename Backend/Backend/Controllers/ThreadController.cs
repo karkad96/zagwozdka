@@ -107,6 +107,36 @@ namespace Backend.Controllers
 
             return GetPosts(id).Result;
         }
+
+        [HttpPut]
+        [Authorize]
+        [Route("{id}")]
+        public async Task<object> PutPost(int id, PutModel put)
+        {
+            var entity = await _context.Posts.FirstOrDefaultAsync(p => p.PostId == put.PostId);
+            if (entity != null)
+            {
+                entity.Content = put.Content;
+                await _context.SaveChangesAsync();
+            }
+
+            return GetPosts(id).Result;
+        }
+
+        [HttpDelete]
+        [Authorize]
+        [Route("{id}")]
+        public async Task<object> DeletePost(int id, DeleteModel delete)
+        {
+            var entity = await _context.Posts.FirstOrDefaultAsync(p => p.PostId == delete.PostId);
+            if (entity != null)
+            {
+                _context.Posts.Remove(entity);
+                await _context.SaveChangesAsync();
+            }
+
+            return GetPosts(id).Result;
+        }
     }
 
     public class Like
@@ -118,5 +148,16 @@ namespace Backend.Controllers
     public class PostModel
     {
         public string Content { get; set; }
+    }
+
+    public class PutModel
+    {
+        public int PostId { get; set; }
+        public string Content { get; set; }
+    }
+
+    public class DeleteModel
+    {
+        public int PostId { get; set; }
     }
 }

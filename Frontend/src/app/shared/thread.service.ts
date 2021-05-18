@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {BehaviorSubject, Observable, of} from "rxjs";
 import {IAnswer, IProblem} from "../models/problem";
@@ -24,5 +24,21 @@ export class ThreadService {
 
 	postPost(id: number, body: any): Observable<IPost[]>  {
 		return this.httpClient.post<IPost[]>(this.url + '/' + id + '/Post', body);
+	}
+
+	putPost(id: number, body: any)  {
+		return this.httpClient.put(this.url + '/' + id, body);
+	}
+
+	deletePost(id: number, postId: number)  {
+		const options = {
+			headers: new HttpHeaders({
+				'Content-Type': 'application/json',
+			}),
+			body: {
+				PostId: postId
+			}
+		};
+		return this.httpClient.delete(this.url + '/' + id, options);
 	}
 }

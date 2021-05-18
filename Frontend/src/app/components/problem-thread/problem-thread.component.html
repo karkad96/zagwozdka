@@ -1,10 +1,10 @@
 <div *ngFor="let post of posts">
 	<div class="center-actions" style=" text-align: right; overflow: hidden">
-		<a href="" *ngIf="post.isOwner">
+		<a *ngIf="post.isOwner" (click)="onEdit(post.postId)">
 			Edytuj
 		</a>
 		&nbsp;
-		<a href="" *ngIf="post.isOwner">
+		<a *ngIf="post.isOwner" (click)="onDelete(post.postId)">
 			Usuń
 		</a>
 		&nbsp;
@@ -25,11 +25,26 @@
 				{{post.programmingLanguage}}
 			</div>
 			<div style="float: right">
-				{{post.postDate}}
+				{{post.postDate | date : "medium"}}
 			</div>
 		</div>
 		<mat-card style="margin: 0 -16px -16px -16px">
-			{{post.content}}
+			<div *ngIf="!post.isEditable">
+				{{post.content}}
+			</div>
+			<div *ngIf="post.isEditable">
+				<form [formGroup]="editPostFormModel" (ngSubmit)="onEditPost(post.postId)" autocomplete="off" class="example-form">
+					<mat-form-field style="width: 100%">
+						<mat-label>Edytuj post</mat-label>
+						<textarea matInput
+								  cdkTextareaAutosize
+								  cdkAutosizeMinRows="1"
+								  formControlName="Content">
+						</textarea>
+					</mat-form-field>
+					<button mat-stroked-button color="primary" class="btn-block" style="float: right">Prześlij</button>
+				</form>
+			</div>
 		</mat-card>
 	</mat-card>
 </div>
