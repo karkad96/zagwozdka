@@ -24,6 +24,8 @@ import {AccountService} from "./shared/account.service";
 import {MatInputModule} from "@angular/material/input";
 import { ProblemThreadComponent } from './components/problem-thread/problem-thread.component';
 import {ThreadService} from "./shared/thread.service";
+import {DeletePostComponent} from "./components/problem-thread/dialog/delete-post.component";
+import {ReportPostComponent} from "./components/problem-thread/dialog/report-post.component";
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import {ThreadService} from "./shared/thread.service";
 	  ProblemListComponent,
 	  AccountComponent,
 	  ProblemThreadComponent,
+	  DeletePostComponent,
+	  ReportPostComponent
   ],
 	imports: [
 		BrowserModule,
@@ -51,6 +55,10 @@ import {ThreadService} from "./shared/thread.service";
 			progressBar: true
 		}),
 		CdkTableModule
+	],
+	entryComponents: [
+		DeletePostComponent,
+		ReportPostComponent
 	],
   providers: [
   	ProblemService,

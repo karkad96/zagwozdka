@@ -4,7 +4,9 @@ import {IPost} from "../../models/post";
 import {ActivatedRoute} from "@angular/router";
 import {FormControl, FormGroup} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
-import {HttpHeaders} from "@angular/common/http";
+import {MatDialog} from "@angular/material/dialog";
+import {DeletePostComponent} from "./dialog/delete-post.component";
+import {ReportPostComponent} from "./dialog/report-post.component";
 
 @Component({
   selector: 'app-problem-thread',
@@ -14,6 +16,8 @@ import {HttpHeaders} from "@angular/common/http";
 export class ProblemThreadComponent implements OnInit {
   	posts?: IPost[];
 	id: number;
+	report?: string;
+
 	postFormModel = new FormGroup({
 		Content: new FormControl()
 	});
@@ -24,7 +28,8 @@ export class ProblemThreadComponent implements OnInit {
 
 	constructor(private threadService: ThreadService,
 				private route: ActivatedRoute,
-				private toastrService: ToastrService
+				private toastrService: ToastrService,
+				public dialog: MatDialog
 	) {
 		this.id = Number(this.route.snapshot.paramMap.get('id'));
 	}
@@ -83,11 +88,32 @@ export class ProblemThreadComponent implements OnInit {
 	}
 
 	onDelete(postId: number) {
-		this.threadService.deletePost(this.id, postId).subscribe(
-			(res: any) => {
-				this.posts = res;
-				this.toastrService.success(
-					'Komentarz usunuęty!', 'Pomyślne usunięto komentarz!');
-			});
+		const dialogRef = this.dialog.open(DeletePostComponent);
+		dialogRef.afterClosed().subscribe(result => {
+			if(result==true) {
+				this.threadService.deletePost(this.id, postId).subscribe(
+					(res: any) => {
+						this.posts = res;
+						this.toastrService.success(
+							'Komentarz usunięty!', 'Pomyślne usunięto komentarz!');
+					});
+			}
+		});
+	}
+
+	onReport(postId: number) {
+		const dialogRef = this.dialog.open(ReportPostComponent, {
+			width: '500px',
+			data: {report: this.report}
+		});
+
+		dialogRef.afterClosed().subscribe(result => {
+			if(result != undefined || result != null || result!= "") {
+				console.log(result);
+			}
+			else {
+
+			}
+		});
 	}
 }

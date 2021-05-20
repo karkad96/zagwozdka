@@ -137,6 +137,25 @@ namespace Backend.Controllers
 
             return GetPosts(id).Result;
         }
+
+        [HttpPost]
+        [Authorize]
+        [Route("{id/Report}")]
+        public async Task<object> ReportPost(int id, Like dislike)
+        {
+            var userId = User.Claims.First(claim => claim.Type == "UserID").Value;
+            var entry = new PostUser
+            {
+                PostId = dislike.postId,
+                UserId = userId,
+                Likes = -1
+            };
+
+            await _context.PostUsers.AddAsync(entry);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
     }
 
     public class Like
