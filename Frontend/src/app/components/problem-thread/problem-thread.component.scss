@@ -1,0 +1,28 @@
+.center {
+	width: 40%;
+	margin: auto auto 10px;
+}
+
+.center:first-child {
+	margin-top: 10px;
+}
+
+.center-actions {
+	width: 40%;
+	margin: auto auto;
+}
+
+.center-actions:first-child {
+	margin-top: 10px;
+}
+
+.example-form {
+	overflow: hidden;
+}
+
+a {
+	color: #3f51b5;
+	text-decoration: none;
+	font-weight: 450;
+	cursor: pointer;
+}
