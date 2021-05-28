@@ -42,7 +42,7 @@ export class ThreadService {
 		return this.httpClient.delete(this.url + '/' + id, options);
 	}
 
-	reportPost(id: number, body: any)  {
+	reportPost(id: number,  body: any)  {
 		return this.httpClient.post(this.url + '/' + id + '/Report', body);
 	}
 }

@@ -14,7 +14,8 @@ namespace Backend.Data
 		public DbSet<ProblemTag> ProblemTags { get; set; }
 		public DbSet<ProblemUser> ProblemUsers { get; set; }
 		public DbSet<Post> Posts { get; set; }
-		public DbSet<PostUser> PostUsers { get; set; }
+		public DbSet<PostUserLike> PostUserLikes { get; set; }
+		public DbSet<PostUserReport> PostUserReports { get; set; }
 
 		public Context(DbContextOptions<Context> options) : base(options)
 		{
@@ -60,17 +61,30 @@ namespace Backend.Data
 				.WithOne(p => p.ApplicationUser)
 				.HasForeignKey(p => p.UserId);
 
-			modelBuilder.Entity<PostUser>()
+			modelBuilder.Entity<PostUserLike>()
 				.HasKey(pt => new {pt.PostId, pt.UserId});
 
-			modelBuilder.Entity<PostUser>()
+			modelBuilder.Entity<PostUserLike>()
 				.HasOne(pu => pu.Post)
-				.WithMany(p => p.PostUsers)
+				.WithMany(p => p.PostUserLikes)
 				.HasForeignKey(pt => pt.PostId);
 
-			modelBuilder.Entity<PostUser>()
+			modelBuilder.Entity<PostUserLike>()
 				.HasOne(pu => pu.ApplicationUser)
-				.WithMany(t => t.PostUsers)
+				.WithMany(t => t.PostUserLikes)
+				.HasForeignKey(pt => pt.UserId);
+
+			modelBuilder.Entity<PostUserReport>()
+				.HasKey(pt => new {pt.PostId, pt.UserId});
+
+			modelBuilder.Entity<PostUserReport>()
+				.HasOne(pu => pu.Post)
+				.WithMany(p => p.PostUserReports)
+				.HasForeignKey(pt => pt.PostId);
+
+			modelBuilder.Entity<PostUserReport>()
+				.HasOne(pu => pu.ApplicationUser)
+				.WithMany(t => t.PostUserReports)
 				.HasForeignKey(pt => pt.UserId);
 
 			modelBuilder.Entity<Problem>().HasData(

@@ -48,7 +48,9 @@ namespace Backend.Controllers
                     programmingLanguage = p.ApplicationUser.ProgramingLanguage,
                     postDate = p.PostDate,
                     isOwner = p.UserId == userId,
-                    isLiked = p.PostUsers
+                    isLiked = p.PostUserLikes
+                        .Any(pu => pu.UserId == userId),
+                    isReported = p.PostUserReports
                         .Any(pu => pu.UserId == userId)
                 })
                 .ToListAsync();
@@ -62,7 +64,7 @@ namespace Backend.Controllers
         public async Task<object> PostLike(int id, Like like)
         {
             var userId = User.Claims.First(claim => claim.Type == "UserID").Value;
-            var entry = new PostUser
+            var entry = new PostUserLike
             {
                 PostId = like.postId,
                 UserId = userId,
@@ -73,11 +75,11 @@ namespace Backend.Controllers
 
             if (like.liked)
             {
-                await _context.PostUsers.AddAsync(entry);
+                await _context.PostUserLikes.AddAsync(entry);
             }
             else
             {
-                _context.PostUsers.Remove(entry);
+                _context.PostUserLikes.Remove(entry);
             }
 
             await _context.Posts.Where(p => p.PostId == like.postId)
@@ -140,21 +142,21 @@ namespace Backend.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route("{id/Report}")]
-        public async Task<object> ReportPost(int id, Like dislike)
+        [Route("{id}/Report")]
+        public async Task<object> ReportPost(int id, ReportModel report)
         {
             var userId = User.Claims.First(claim => claim.Type == "UserID").Value;
-            var entry = new PostUser
+            var entry = new PostUserReport
             {
-                PostId = dislike.postId,
+                PostId = report.PostId,
                 UserId = userId,
-                Likes = -1
+                Report = report.Report
             };
 
-            await _context.PostUsers.AddAsync(entry);
+            await _context.PostUserReports.AddAsync(entry);
             await _context.SaveChangesAsync();
 
-            return Ok();
+            return GetPosts(id).Result;
         }
     }
 
@@ -178,5 +180,12 @@ namespace Backend.Controllers
     public class DeleteModel
     {
         public int PostId { get; set; }
+    }
+
+    public class ReportModel
+    {
+        public int PostId { get; set; }
+
+        public string Report { get; set; }
     }
 }

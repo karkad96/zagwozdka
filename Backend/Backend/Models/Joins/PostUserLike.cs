@@ -1,6 +1,6 @@
 namespace Backend.Models.Joins
 {
-    public class PostUser
+    public class PostUserLike
     {
         public int PostId { get; set; }
         public Post Post { get; set; }

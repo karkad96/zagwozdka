@@ -108,12 +108,23 @@ export class ProblemThreadComponent implements OnInit {
 		});
 
 		dialogRef.afterClosed().subscribe(result => {
-			if(result != undefined || result != null || result!= "") {
-				console.log(result);
+			if(result != undefined && result !== "" && result !== "cancel") {
+				this.threadService.reportPost(this.id, {PostId: postId, Report: result}).subscribe(
+					(res: any) => {
+						this.posts = res;
+						this.toastrService.success(
+							'Zgłosiłeś komentarz!', 'Pomyślne zgłosiłeś komentarz!');
+					});
 			}
-			else {
-
+			else if (result !== "cancel"){
+				this.toastrService.error(
+					'Zgłoszenie nie może być puste!', 'Przesłano puste zgłoszenie...');
 			}
 		});
+	}
+
+	onAlreadyReported(postId: number) {
+		this.toastrService.warning(
+			'Ten komentarz już został zgłoszony przez Ciebie!', 'Ponowne zgłoszenie komentarza!');
 	}
 }

@@ -17,6 +17,7 @@ namespace Backend.Models
 
         public string UserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
-        public List<PostUser> PostUsers { get; set; }
+        public List<PostUserLike> PostUserLikes { get; set; }
+        public List<PostUserReport> PostUserReports { get; set; }
     }
 }

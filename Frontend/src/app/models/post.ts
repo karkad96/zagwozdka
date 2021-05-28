@@ -7,5 +7,6 @@ export interface IPost {
 	postDate: string
 	isOwner: boolean
 	isLiked: boolean
+	isReported: boolean
 	isEditable: boolean
 }

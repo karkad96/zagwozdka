@@ -8,7 +8,10 @@
 			Usuń
 		</a>
 		&nbsp;
-		<a (click)="onReport(post.postId)">
+		<a (click)="onReport(post.postId)" *ngIf="!post.isReported">
+			Zgłoś
+		</a>
+		<a (click)="onAlreadyReported(post.postId)" *ngIf="post.isReported">
 			Zgłoś
 		</a>
 		&nbsp;

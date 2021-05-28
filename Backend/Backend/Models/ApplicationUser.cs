@@ -9,7 +9,8 @@ using Microsoft.AspNetCore.Identity;
 	{
 		public List<ProblemUser> ProblemUsers { get; set; }
 		public List<Post> Posts { get; set; }
-		public List<PostUser> PostUsers { get; set; }
+		public List<PostUserLike> PostUserLikes { get; set; }
+		public List<PostUserReport> PostUserReports { get; set; }
 		public string ProgramingLanguage { get; set; }
 		public string ExtraInfo { get; set; }
 		public string Image { get; set; }

@@ -3,20 +3,22 @@ using System;
 using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20210520152719_AddNewPostUserReportTable")]
+    partial class AddNewPostUserReportTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.3");
 
-            modelBuilder.Entity("Backend.Models.Joins.PostUserLike", b =>
+            modelBuilder.Entity("Backend.Models.Joins.PostUser", b =>
                 {
                     b.Property<int>("PostId")
                         .HasColumnType("INTEGER");
@@ -31,7 +33,7 @@ namespace Backend.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("PostUserLikes");
+                    b.ToTable("PostUsers");
                 });
 
             modelBuilder.Entity("Backend.Models.Joins.PostUserReport", b =>
@@ -189,7 +191,7 @@ namespace Backend.Data.Migrations
                             Answer = "128754612",
                             Description = "Test 1",
                             Difficulty = "Łatwy",
-                            ReleaseDate = new DateTime(2021, 5, 20, 17, 34, 4, 847, DateTimeKind.Local).AddTicks(2996),
+                            ReleaseDate = new DateTime(2021, 5, 20, 17, 27, 18, 954, DateTimeKind.Local).AddTicks(2634),
                             SolvedBy = 112,
                             Title = "Problem 1"
                         },
@@ -199,7 +201,7 @@ namespace Backend.Data.Migrations
                             Answer = "5272",
                             Description = "Test 2",
                             Difficulty = "Normalny",
-                            ReleaseDate = new DateTime(2021, 5, 20, 17, 34, 4, 851, DateTimeKind.Local).AddTicks(9979),
+                            ReleaseDate = new DateTime(2021, 5, 20, 17, 27, 18, 958, DateTimeKind.Local).AddTicks(8503),
                             SolvedBy = 52,
                             Title = "Problem 2"
                         },
@@ -209,7 +211,7 @@ namespace Backend.Data.Migrations
                             Answer = "234677892",
                             Description = "Test 3",
                             Difficulty = "Trudny",
-                            ReleaseDate = new DateTime(2021, 5, 20, 17, 34, 4, 852, DateTimeKind.Local).AddTicks(135),
+                            ReleaseDate = new DateTime(2021, 5, 20, 17, 27, 18, 958, DateTimeKind.Local).AddTicks(8665),
                             SolvedBy = 12,
                             Title = "Problem 3"
                         });
@@ -474,16 +476,16 @@ namespace Backend.Data.Migrations
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
-            modelBuilder.Entity("Backend.Models.Joins.PostUserLike", b =>
+            modelBuilder.Entity("Backend.Models.Joins.PostUser", b =>
                 {
                     b.HasOne("Backend.Models.Post", "Post")
-                        .WithMany("PostUserLikes")
+                        .WithMany("PostUsers")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Backend.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany("PostUserLikes")
+                        .WithMany("PostUsers")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -622,9 +624,9 @@ namespace Backend.Data.Migrations
 
             modelBuilder.Entity("Backend.Models.Post", b =>
                 {
-                    b.Navigation("PostUserLikes");
-
                     b.Navigation("PostUserReports");
+
+                    b.Navigation("PostUsers");
                 });
 
             modelBuilder.Entity("Backend.Models.Problem", b =>
@@ -645,9 +647,9 @@ namespace Backend.Data.Migrations
                 {
                     b.Navigation("Posts");
 
-                    b.Navigation("PostUserLikes");
-
                     b.Navigation("PostUserReports");
+
+                    b.Navigation("PostUsers");
 
                     b.Navigation("ProblemUsers");
                 });
