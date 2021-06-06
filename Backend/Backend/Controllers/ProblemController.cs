@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace Backend.Controllers
@@ -50,7 +51,16 @@ namespace Backend.Controllers
                 })
                 .ToListAsync();
 
-            return Ok(problems);
+            var tags = await _context.Tags.Select(t => new
+            {
+                tagId = t.TagId,
+                tagName = t.TagName
+            }).ToListAsync();
+            
+            tags.Add(new {tagId = 0, tagName = "Wszystkie"});
+            tags = tags.OrderBy(t => t.tagId).ToList();
+            
+            return Ok(new {problems, tags});
         }
 
         [HttpGet]
