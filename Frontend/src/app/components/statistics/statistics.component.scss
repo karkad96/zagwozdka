@@ -1,0 +1,54 @@
+.center {
+	width: 50%;
+	margin: auto auto 10px;
+}
+
+.square {
+	float: left;
+	width: 42px;
+	height: 42px;
+	border: solid 1px;
+	margin: 2px 2px 2px 2px;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.my-tooltip {
+	white-space: pre-line;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:link {
+	color: black;
+}
+
+a:visited {
+	color: black;
+}
+
+a:hover {
+	color: black;
+}
+
+a:active {
+	color: black;
+}
+
+mat-row {
+	min-height: 25px;
+}
+
+.w-75 {
+	max-width: 75px;
+}
+
+.w-250 {
+	max-width: 250px;
+}
+

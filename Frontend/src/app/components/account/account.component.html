@@ -3,6 +3,7 @@
 	<input type="file" (change)="onFileSelected($event)" #fileInput style="display: none">
 	<button mat-stroked-button color="primary" class="btn-block" (click)="fileInput.click()">Wybierz zdjęcie</button>
 	<button mat-stroked-button color="primary" class="btn-block" (click)="onImagePost()">Prześlij zdjęcie</button>
+	<button mat-stroked-button routerLink="/statistics" color="primary" class="btn-block" >Statystyki</button>
 </mat-card>
 
 <mat-card class="center space">

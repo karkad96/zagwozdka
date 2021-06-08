@@ -1,0 +1,47 @@
+<mat-tab-group class="center" style="margin-top: 20px">
+	<mat-tab label="Zagwozdki">
+		<h2 style="margin-top: 13px">Rozwiązane zagwozdki</h2>
+		<div style="overflow: hidden">
+			<a *ngFor="let problem of problems"
+			   class="square no-select"
+			   routerLink="/problem/{{problem.problemId}}"
+			   tooltip="<b>Zagwozdka {{problem.problemId}}</b></br>
+						Rozwiązana przez {{problem.solvedBy}} osób</br>
+						Poziom trudności: {{problem.difficulty}}%</br>
+						{{problem.solvedDate == null ? '':'Ukończono ' + problem.solvedDate + '</br>'}}
+						&#34;{{problem.title}}&#34;"
+			   [options]="tooltipOptions">
+				{{problem.problemId}}
+			</a>
+		</div>
+		<h2 style="margin-top: 27px">Postęp w rozwiązywaniu zagwozdek</h2>
+		<mat-table [dataSource]="ratings" *ngIf="ratings" style="max-width: 520px">
+			<ng-container matColumnDef="difficulty">
+				<mat-header-cell *matHeaderCellDef [ngClass]="'w-75'"> Poziom trudności </mat-header-cell>
+				<mat-cell *matCellDef="let row" [ngClass]="'w-75'"> {{row.difficulty}}% </mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="available">
+				<mat-header-cell *matHeaderCellDef [ngClass]="'w-75'"> Dostępne zagwozdki </mat-header-cell>
+				<mat-cell *matCellDef="let row" [ngClass]="'w-75'">{{row.available}}</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="solved">
+				<mat-header-cell *matHeaderCellDef [ngClass]="'w-75'"> Rozwiązane zagwozdki </mat-header-cell>
+				<mat-cell *matCellDef="let row" [ngClass]="'w-75'"> {{row.solved}} </mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="progress">
+				<mat-header-cell *matHeaderCellDef [ngClass]="'w-250'"> Postęp </mat-header-cell>
+				<mat-cell *matCellDef="let row" [ngClass]="'w-250'">
+					<mat-progress-bar mode="determinate" value="{{row.progress * 100}}"></mat-progress-bar>
+				</mat-cell>
+			</ng-container>
+
+			<mat-header-row *matHeaderRowDef="['difficulty', 'available', 'solved', 'progress']"></mat-header-row>
+			<mat-row *matRowDef="let row; columns: ['difficulty', 'available', 'solved', 'progress']"></mat-row>
+		</mat-table>
+	</mat-tab>
+	<mat-tab label="Komentarze"> Content 2 </mat-tab>
+	<mat-tab label="Historia"> Content 3 </mat-tab>
+</mat-tab-group>

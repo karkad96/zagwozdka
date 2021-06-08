@@ -26,6 +26,10 @@ import { ProblemThreadComponent } from './components/problem-thread/problem-thre
 import {ThreadService} from "./shared/thread.service";
 import {DeletePostComponent} from "./components/problem-thread/dialog/delete-post.component";
 import {ReportPostComponent} from "./components/problem-thread/dialog/report-post.component";
+import { StatisticsComponent } from './components/statistics/statistics.component';
+import {StatisticsService} from "./shared/statistics.service";
+import { TooltipModule } from 'ng2-tooltip-directive';
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 @NgModule({
   declarations: [
@@ -39,7 +43,8 @@ import {ReportPostComponent} from "./components/problem-thread/dialog/report-pos
 	  AccountComponent,
 	  ProblemThreadComponent,
 	  DeletePostComponent,
-	  ReportPostComponent
+	  ReportPostComponent,
+	  StatisticsComponent
   ],
 	imports: [
 		BrowserModule,
@@ -51,6 +56,8 @@ import {ReportPostComponent} from "./components/problem-thread/dialog/report-pos
 		BrowserAnimationsModule,
 		HttpClientModule,
 		MatInputModule,
+		TooltipModule,
+		MatProgressBarModule,
 		ToastrModule.forRoot({
 			progressBar: true
 		}),
@@ -64,6 +71,7 @@ import {ReportPostComponent} from "./components/problem-thread/dialog/report-pos
   	ProblemService,
 	  AccountService,
 	  ThreadService,
+	  StatisticsService,
   	RegisterService,
 	  LoginService,
 	  {

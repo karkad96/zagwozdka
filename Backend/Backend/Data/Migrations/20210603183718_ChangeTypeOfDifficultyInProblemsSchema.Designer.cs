@@ -3,14 +3,16 @@ using System;
 using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20210603183718_ChangeTypeOfDifficultyInProblemsSchema")]
+    partial class ChangeTypeOfDifficultyInProblemsSchema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,7 +190,7 @@ namespace Backend.Data.Migrations
                             Answer = "128754612",
                             Description = "Test 1",
                             Difficulty = 10,
-                            ReleaseDate = new DateTime(2021, 6, 3, 21, 14, 39, 808, DateTimeKind.Local).AddTicks(4389),
+                            ReleaseDate = new DateTime(2021, 6, 3, 20, 37, 17, 934, DateTimeKind.Local).AddTicks(1786),
                             SolvedBy = 112,
                             Title = "Problem 1"
                         },
@@ -198,7 +200,7 @@ namespace Backend.Data.Migrations
                             Answer = "5272",
                             Description = "Test 2",
                             Difficulty = 30,
-                            ReleaseDate = new DateTime(2021, 6, 3, 21, 14, 39, 814, DateTimeKind.Local).AddTicks(5008),
+                            ReleaseDate = new DateTime(2021, 6, 3, 20, 37, 17, 939, DateTimeKind.Local).AddTicks(9357),
                             SolvedBy = 52,
                             Title = "Problem 2"
                         },
@@ -208,7 +210,7 @@ namespace Backend.Data.Migrations
                             Answer = "234677892",
                             Description = "Test 3",
                             Difficulty = 70,
-                            ReleaseDate = new DateTime(2021, 6, 3, 21, 14, 39, 814, DateTimeKind.Local).AddTicks(5234),
+                            ReleaseDate = new DateTime(2021, 6, 3, 20, 37, 17, 939, DateTimeKind.Local).AddTicks(9557),
                             SolvedBy = 12,
                             Title = "Problem 3"
                         });

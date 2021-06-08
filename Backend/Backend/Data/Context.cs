@@ -87,6 +87,10 @@ namespace Backend.Data
 				.WithMany(t => t.PostUserReports)
 				.HasForeignKey(pt => pt.UserId);
 
+			modelBuilder.Entity<ProblemUser>()
+				.Property(pu => pu.SolvedDate)
+				.HasDefaultValue(null);
+
 			modelBuilder.Entity<Problem>().HasData(
 				new Problem
 				{
@@ -95,7 +99,7 @@ namespace Backend.Data
 					Description = "Test 1",
 					Answer = "128754612",
 					SolvedBy = 112,
-					Difficulty = "Łatwy",
+					Difficulty = 10,
 					ReleaseDate = DateTime.Now
 				}
 			);
@@ -108,7 +112,7 @@ namespace Backend.Data
 					Description = "Test 2",
 					Answer = "5272",
 					SolvedBy = 52,
-					Difficulty = "Normalny",
+					Difficulty = 30,
 					ReleaseDate = DateTime.Now
 				}
 			);
@@ -121,7 +125,7 @@ namespace Backend.Data
 					Description = "Test 3",
 					Answer = "234677892",
 					SolvedBy = 12,
-					Difficulty = "Trudny",
+					Difficulty = 70,
 					ReleaseDate = DateTime.Now
 				}
 			);
