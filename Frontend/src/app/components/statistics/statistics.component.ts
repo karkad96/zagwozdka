@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {ProblemService} from "../../shared/problem.service";
+import {Component, OnInit} from '@angular/core';
 import {StatisticsService} from "../../shared/statistics.service";
-import {IProblems, IRatings, IStatistics} from "../../models/statistics";
-import {IProblem} from "../../models/problem";
+import {IProblems, IRatings} from "../../models/statistics";
 
 @Component({
   selector: 'app-statistics',
@@ -29,7 +27,6 @@ export class StatisticsComponent implements OnInit {
 			.subscribe(data => {
 				this.problems = data.problems;
 				this.ratings = this.getRatings(data.ratings).reverse();
-				console.log(this.ratings);
 			}
 			);
   	}
@@ -52,5 +49,16 @@ export class StatisticsComponent implements OnInit {
 				progress: holder.available[i] == 0 ? 0 : holder.solved[i] / holder.available[i]})
 		}
 		return ret;
+	}
+
+	getColor(weight: string) {
+  		const colorFrom = [0, 97, 255]
+		const colorTo = [96, 239, 255]
+		const w1 = parseInt(weight,10) / 100;
+		const w2 = 1 - w1;
+
+		return [Math.round(colorFrom[0] * w1 + colorTo[0] * w2),
+			Math.round(colorFrom[1] * w1 + colorTo[1] * w2),
+			Math.round(colorFrom[2] * w1 + colorTo[2] * w2)];
 	}
 }

@@ -3,6 +3,7 @@
 		<h2 style="margin-top: 13px">Rozwiązane zagwozdki</h2>
 		<div style="overflow: hidden">
 			<a *ngFor="let problem of problems"
+			   [ngStyle]="{ background: problem.isSolved?'rgb('+getColor(problem.difficulty).join()+')':''}"
 			   class="square no-select"
 			   routerLink="/problem/{{problem.problemId}}"
 			   tooltip="<b>Zagwozdka {{problem.problemId}}</b></br>
@@ -34,7 +35,13 @@
 			<ng-container matColumnDef="progress">
 				<mat-header-cell *matHeaderCellDef [ngClass]="'w-250'"> Postęp </mat-header-cell>
 				<mat-cell *matCellDef="let row" [ngClass]="'w-250'">
-					<mat-progress-bar mode="determinate" value="{{row.progress * 100}}"></mat-progress-bar>
+					<mat-progress-bar
+						mode="determinate"
+						value="{{row.progress * 100}}"
+						tooltip="Rozwiązono {{row.progress * 100}}% problemów o poziomie trudności {{row.difficulty}}%"
+						[options]="tooltipOptions">
+
+					</mat-progress-bar>
 				</mat-cell>
 			</ng-container>
 
@@ -42,6 +49,7 @@
 			<mat-row *matRowDef="let row; columns: ['difficulty', 'available', 'solved', 'progress']"></mat-row>
 		</mat-table>
 	</mat-tab>
-	<mat-tab label="Komentarze"> Content 2 </mat-tab>
+	<mat-tab label="Komentarze">
+	</mat-tab>
 	<mat-tab label="Historia"> Content 3 </mat-tab>
 </mat-tab-group>
