@@ -20,7 +20,7 @@ export interface IAnswer {
 	solvedDate: string
 }
 
-export interface IProblemAndTag{
+export interface IProblemsAndTags {
 	problems: IProblem[]
 	tags: ITag[]
 }

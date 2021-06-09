@@ -10,9 +10,9 @@ import {ProblemService} from "../../shared/problem.service";
 export class ProblemListComponent implements OnInit {
 
 	public problems: IProblem[] = []
-	public allProblems: IProblem[] = []
+	private allProblems: IProblem[] = []
 	public tags: ITag[] = []
-	defaultTag: number = 0;
+	public defaultTag: number = 0;
 
 	constructor(private problemService: ProblemService) {
 	}
