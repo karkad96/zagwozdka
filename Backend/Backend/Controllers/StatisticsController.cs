@@ -62,15 +62,6 @@ namespace Backend.Controllers
                         .Any(pu => pu.Id == userId && pu.ProblemId == p.ProblemId)
                 }).ToListAsync();
 
-            var posts = await _context.Posts
-                .Where(p => userId == p.UserId)
-                .Select( p => new {
-                    problemId = p.ProblemId,
-                    postId = p.PostId,
-                    likes = p.Likes,
-                    reports = p.Reports
-                }).ToListAsync();
-
             var history = await _context.ProblemUsers
                 .Where(pu => pu.Id == userId)
                 .Select(pu => new
@@ -104,7 +95,7 @@ namespace Backend.Controllers
                     programmingLanguage = user.ProgramingLanguage
                 };
 
-            return Ok(new {problems, ratings, posts, history, ranking, info, userName});
+            return Ok(new {problems, ratings, history, ranking, info, userName});
         }
     }
 }

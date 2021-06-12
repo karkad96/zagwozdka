@@ -1,13 +1,22 @@
-<h1 class="center" style="margin-top: 20px" *ngIf="userName">{{userName}}</h1>
+<h1 class="center" style="margin-top: 20px" *ngIf="userName"><b>{{userName}}</b></h1>
 <h3 class="center" *ngIf="history">Rozwiązano {{history.length}} zagwozdek spośród {{count}} dostępnych</h3>
-<mat-progress-bar style="height: 15px"
-				  class="center"
-				  mode="determinate"
-				  value="{{history.length/count*100}}"
-				  *ngIf="history && count"
-				  tooltip="Rozwiązono {{history.length/count*100 | number: '1.1-1'}}% problemów"
-				  [options]="tooltipOptions">
-</mat-progress-bar>
+<h4 class="center" style="margin-bottom: 2px">Postęp: </h4>
+<div>
+	<mat-progress-bar style="height: 17px"
+					  class="center"
+					  mode="determinate"
+					  value="{{history.length/count*100}}"
+					  *ngIf="history && count"
+					  >
+	</mat-progress-bar>
+	<div class="center percentage-progress-bar"
+		 *ngIf="history && count"
+		 tooltip="Rozwiązono {{history.length/count*100 | number: '1.1-1'}}% problemów"
+		 [options]="tooltipOptions">
+		{{ history.length/count*100 | number: '1.1-1'}}%
+	</div>
+</div>
+
 <mat-tab-group class="center" style="margin-top: 20px">
 	<mat-tab label="Zagwozdki">
 		<h2 style="margin-top: 13px">Rozwiązane zagwozdki</h2>
@@ -58,8 +67,6 @@
 			<mat-header-row *matHeaderRowDef="['difficulty', 'available', 'solved', 'progress']"></mat-header-row>
 			<mat-row *matRowDef="let row; columns: ['difficulty', 'available', 'solved', 'progress']"></mat-row>
 		</mat-table>
-	</mat-tab>
-	<mat-tab label="Komentarze">
 	</mat-tab>
 	<mat-tab label="Historia">
 		<h2 style="margin-top: 13px" *ngIf="history">Ostatnie {{history.length}} rozwiązanych zagwozdek</h2>
@@ -121,7 +128,10 @@
 			</ng-container>
 
 			<mat-header-row *matHeaderRowDef="['index', 'userName', 'solved', 'programmingLanguage']"></mat-header-row>
-			<mat-row *matRowDef="let row; columns: ['index', 'userName', 'solved', 'programmingLanguage']; let i = index" style="min-height: 30px"></mat-row>
+			<mat-row *matRowDef="let row; columns: ['index', 'userName', 'solved', 'programmingLanguage']; let i = index"
+					 style="min-height: 30px"
+					 [ngStyle]="{ background: (row.userName == userName) ? '#D4EDC9' : '' }">
+			</mat-row>
 		</mat-table>
 	</mat-tab>
 </mat-tab-group>
