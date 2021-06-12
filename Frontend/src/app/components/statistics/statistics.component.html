@@ -1,3 +1,13 @@
+<h1 class="center" style="margin-top: 20px" *ngIf="userName">{{userName}}</h1>
+<h3 class="center" *ngIf="history">Rozwiązano {{history.length}} zagwozdek spośród {{count}} dostępnych</h3>
+<mat-progress-bar style="height: 15px"
+				  class="center"
+				  mode="determinate"
+				  value="{{history.length/count*100}}"
+				  *ngIf="history && count"
+				  tooltip="Rozwiązono {{history.length/count*100 | number: '1.1-1'}}% problemów"
+				  [options]="tooltipOptions">
+</mat-progress-bar>
 <mat-tab-group class="center" style="margin-top: 20px">
 	<mat-tab label="Zagwozdki">
 		<h2 style="margin-top: 13px">Rozwiązane zagwozdki</h2>
@@ -38,7 +48,7 @@
 					<mat-progress-bar
 						mode="determinate"
 						value="{{row.progress * 100}}"
-						tooltip="Rozwiązono {{row.progress * 100}}% problemów o poziomie trudności {{row.difficulty}}%"
+						tooltip="Rozwiązono {{row.progress * 100 | number: '1.1-1'}}% problemów o poziomie trudności {{row.difficulty}}%"
 						[options]="tooltipOptions">
 
 					</mat-progress-bar>
@@ -51,5 +61,33 @@
 	</mat-tab>
 	<mat-tab label="Komentarze">
 	</mat-tab>
-	<mat-tab label="Historia"> Content 3 </mat-tab>
+	<mat-tab label="Historia">
+		<h2 style="margin-top: 13px" *ngIf="history">Ostatnie {{history.length}} rozwiązanych zagwozdek</h2>
+		<mat-table [dataSource]="history" *ngIf="history" style="max-width: 350px">
+			<ng-container matColumnDef="index">
+				<mat-header-cell *matHeaderCellDef [ngClass]="'w-30'"></mat-header-cell>
+				<mat-cell *matCellDef="let row; let i = index;" [ngClass]="'w-30'">{{i + 1}}</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="problemId">
+				<mat-header-cell *matHeaderCellDef [ngClass]="'w-120'"> Id zagwozdki </mat-header-cell>
+				<mat-cell *matCellDef="let row" [ngClass]="'w-120'">
+					<a routerLink="/problem/{{row.problemId}}"
+					style="	color: #3f51b5; text-decoration: none; font-weight: 450;">
+						Zagwozdka {{row.problemId}}
+					</a>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="solvedDate">
+				<mat-header-cell *matHeaderCellDef [ngClass]="'w-250'"> Data rozwiązania </mat-header-cell>
+				<mat-cell *matCellDef="let row" [ngClass]="'w-250'">{{row.solvedDate | date: "MM/dd/yyyy HH:mm:ss"}}</mat-cell>
+			</ng-container>
+
+			<mat-header-row *matHeaderRowDef="['index', 'problemId', 'solvedDate']"></mat-header-row>
+			<mat-row *matRowDef="let row; columns: ['index', 'problemId', 'solvedDate']; let i = index" style="min-height: 30px"></mat-row>
+		</mat-table>
+	</mat-tab>
+	<mat-tab label="Ranking">
+	</mat-tab>
 </mat-tab-group>

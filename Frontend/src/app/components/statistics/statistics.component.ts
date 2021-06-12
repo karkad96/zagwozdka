@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {StatisticsService} from "../../shared/statistics.service";
-import {IProblems, IRatings} from "../../models/statistics";
+import {IHistory, IPosts, IProblems, IRatings} from "../../models/statistics";
 
 @Component({
   selector: 'app-statistics',
@@ -10,13 +10,17 @@ import {IProblems, IRatings} from "../../models/statistics";
 export class StatisticsComponent implements OnInit {
 	problems?: IProblems[] = [];
 	ratings?: IRatings[] = [];
+	posts?: IPosts[] = [];
+	history?: IHistory[] = [];
+	count?: number
+	userName?: string
 	tooltipOptions = {
 		'placement': 'bottom',
 		'hide-delay': 0,
 		'theme': "light"
 	};
 
-  	constructor(private statisticsService: StatisticsService) { }
+  	constructor(private statisticsService: StatisticsService) {}
 
   	ngOnInit(): void {
   		this.getStatistics();
@@ -27,6 +31,10 @@ export class StatisticsComponent implements OnInit {
 			.subscribe(data => {
 				this.problems = data.problems;
 				this.ratings = this.getRatings(data.ratings).reverse();
+				this.posts = this.getPosts(data.posts);
+				this.history = data.history;
+				this.count = data.info
+				this.userName = data.userName
 			}
 			);
   	}
@@ -49,6 +57,22 @@ export class StatisticsComponent implements OnInit {
 				progress: holder.available[i] == 0 ? 0 : holder.solved[i] / holder.available[i]})
 		}
 		return ret;
+	}
+
+	getPosts(data: any): IPosts[] {
+		let result = data.reduce(function (r: any, a: any) {
+			r[a.problemId] = r[a.problemId] || [];
+			r[a.problemId].push(a);
+			return r;
+		}, Object.create(null));
+
+		var resultArray = Object.keys(result).map(function(personNamedIndex){
+			let person = result[personNamedIndex];
+			// do something with person
+			return person;
+		});
+
+		return resultArray;
 	}
 
 	getColor(weight: string) {

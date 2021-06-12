@@ -15,7 +15,7 @@
 	</div>
 	<div fxLayout="column" *ngIf="(LoginStatus$ | async) && problem.result" class="center">
 		<p>Odpowiedź: {{problem.result.answer}}</p>
-		<p>Rozwiązano: {{problem.result.solvedDate}}</p>
+		<p>Rozwiązano: {{problem.result.solvedDate | date: "MM/dd/yyyy HH:mm:ss"}}</p>
 	</div>
 	<a mat-button
 	   mat-raised-button

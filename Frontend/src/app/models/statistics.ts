@@ -2,6 +2,10 @@
 export interface IStatistics {
 	problems: IProblems[]
 	ratings: IRatings[]
+	posts: IPosts[]
+	history: IHistory[]
+	info: number
+	userName: string
 }
 
 export interface IProblems {
@@ -19,3 +23,16 @@ export interface IRatings {
 	solved: number,
 	progress: number
 }
+
+export interface IPosts {
+	problemId: number
+	postId: number,
+	likes: number,
+	reports: number
+}
+
+export interface IHistory {
+	problemId: number
+	solvedDate: string
+}
+
