@@ -9,6 +9,7 @@ namespace Backend.Models
         public int PostId { get; set; }
         public string Content { get; set; }
         public int Likes { get; set; }
+        public int Reports { get; set; }
 
         public DateTime PostDate { get; set; }
 
