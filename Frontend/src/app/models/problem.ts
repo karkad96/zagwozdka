@@ -19,3 +19,8 @@ export interface IAnswer {
 	answer: string
 	solvedDate: string
 }
+
+export interface IProblemsAndTags {
+	problems: IProblem[]
+	tags: ITag[]
+}

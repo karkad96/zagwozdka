@@ -22,6 +22,14 @@ import { ProblemListComponent } from './components/problem-list/problem-list.com
 import { AccountComponent } from './components/account/account.component';
 import {AccountService} from "./shared/account.service";
 import {MatInputModule} from "@angular/material/input";
+import { ProblemThreadComponent } from './components/problem-thread/problem-thread.component';
+import {ThreadService} from "./shared/thread.service";
+import {DeletePostComponent} from "./components/problem-thread/dialog/delete-post.component";
+import {ReportPostComponent} from "./components/problem-thread/dialog/report-post.component";
+import { StatisticsComponent } from './components/statistics/statistics.component';
+import {StatisticsService} from "./shared/statistics.service";
+import { TooltipModule } from 'ng2-tooltip-directive';
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 @NgModule({
   declarations: [
@@ -33,6 +41,10 @@ import {MatInputModule} from "@angular/material/input";
 	  ProblemComponent,
 	  ProblemListComponent,
 	  AccountComponent,
+	  ProblemThreadComponent,
+	  DeletePostComponent,
+	  ReportPostComponent,
+	  StatisticsComponent
   ],
 	imports: [
 		BrowserModule,
@@ -44,14 +56,22 @@ import {MatInputModule} from "@angular/material/input";
 		BrowserAnimationsModule,
 		HttpClientModule,
 		MatInputModule,
+		TooltipModule,
+		MatProgressBarModule,
 		ToastrModule.forRoot({
 			progressBar: true
 		}),
 		CdkTableModule
 	],
+	entryComponents: [
+		DeletePostComponent,
+		ReportPostComponent
+	],
   providers: [
   	ProblemService,
 	  AccountService,
+	  ThreadService,
+	  StatisticsService,
   	RegisterService,
 	  LoginService,
 	  {

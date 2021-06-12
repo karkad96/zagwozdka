@@ -1,3 +1,14 @@
+<div class = "category">
+	<mat-form-field appearance="fill">
+		<mat-label>Kategoria</mat-label>
+		<img matPrefix class="icon" src="../../../assets/img.png" alt="cube">
+		<mat-select [(value)]="defaultTag" (selectionChange) = "onCategoryChange($event.value)">
+			<mat-option *ngFor = "let tag of tags" [value] = "tag.tagId">
+				{{tag.tagName}}
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+</div>
 <div class="center">
 	<mat-table [dataSource]="problems">
 		<ng-container matColumnDef="problemId">
@@ -16,7 +27,7 @@
 
 		<ng-container matColumnDef="difficulty">
 			<mat-header-cell *matHeaderCellDef> Poziom trudności </mat-header-cell>
-			<mat-cell *matCellDef="let row"> {{row.difficulty}} </mat-cell>
+			<mat-cell *matCellDef="let row"> {{row.difficulty}}% </mat-cell>
 		</ng-container>
 
 		<ng-container matColumnDef="solvedBy">

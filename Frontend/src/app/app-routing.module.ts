@@ -6,6 +6,8 @@ import {AuthGuard} from "./auth/auth.guard";
 import {ProblemComponent} from "./components/problem/problem.component";
 import {ProblemListComponent} from "./components/problem-list/problem-list.component";
 import {AccountComponent} from "./components/account/account.component";
+import {ProblemThreadComponent} from "./components/problem-thread/problem-thread.component";
+import {StatisticsComponent} from "./components/statistics/statistics.component";
 
 const routes: Routes = [
 	{ path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -13,7 +15,9 @@ const routes: Routes = [
 	{ path: 'register', component: RegisterComponent },
 	{ path: 'problem-list', component: ProblemListComponent },
 	{ path: 'problem/:id', component: ProblemComponent },
-	{ path: 'account', component: AccountComponent, canActivate: [AuthGuard] }
+	{ path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
+	{ path: 'problem-thread/:id', component: ProblemThreadComponent, canActivate: [AuthGuard] },
+	{ path: 'statistics', component: StatisticsComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

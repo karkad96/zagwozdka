@@ -13,6 +13,9 @@ namespace Backend.Data
 		public DbSet<Tag> Tags { get; set; }
 		public DbSet<ProblemTag> ProblemTags { get; set; }
 		public DbSet<ProblemUser> ProblemUsers { get; set; }
+		public DbSet<Post> Posts { get; set; }
+		public DbSet<PostUserLike> PostUserLikes { get; set; }
+		public DbSet<PostUserReport> PostUserReports { get; set; }
 
 		public Context(DbContextOptions<Context> options) : base(options)
 		{
@@ -48,6 +51,46 @@ namespace Backend.Data
 				.WithMany(t => t.ProblemUsers)
 				.HasForeignKey(pt => pt.Id);
 
+			modelBuilder.Entity<Problem>()
+				.HasMany(p => p.Posts)
+				.WithOne(p => p.Problem)
+				.HasForeignKey(p => p.ProblemId);
+
+			modelBuilder.Entity<ApplicationUser>()
+				.HasMany(au => au.Posts)
+				.WithOne(p => p.ApplicationUser)
+				.HasForeignKey(p => p.UserId);
+
+			modelBuilder.Entity<PostUserLike>()
+				.HasKey(pt => new {pt.PostId, pt.UserId});
+
+			modelBuilder.Entity<PostUserLike>()
+				.HasOne(pu => pu.Post)
+				.WithMany(p => p.PostUserLikes)
+				.HasForeignKey(pt => pt.PostId);
+
+			modelBuilder.Entity<PostUserLike>()
+				.HasOne(pu => pu.ApplicationUser)
+				.WithMany(t => t.PostUserLikes)
+				.HasForeignKey(pt => pt.UserId);
+
+			modelBuilder.Entity<PostUserReport>()
+				.HasKey(pt => new {pt.PostId, pt.UserId});
+
+			modelBuilder.Entity<PostUserReport>()
+				.HasOne(pu => pu.Post)
+				.WithMany(p => p.PostUserReports)
+				.HasForeignKey(pt => pt.PostId);
+
+			modelBuilder.Entity<PostUserReport>()
+				.HasOne(pu => pu.ApplicationUser)
+				.WithMany(t => t.PostUserReports)
+				.HasForeignKey(pt => pt.UserId);
+
+			modelBuilder.Entity<ProblemUser>()
+				.Property(pu => pu.SolvedDate)
+				.HasDefaultValue(null);
+
 			modelBuilder.Entity<Problem>().HasData(
 				new Problem
 				{
@@ -56,7 +99,7 @@ namespace Backend.Data
 					Description = "Test 1",
 					Answer = "128754612",
 					SolvedBy = 112,
-					Difficulty = "Łatwy",
+					Difficulty = 10,
 					ReleaseDate = DateTime.Now
 				}
 			);
@@ -69,7 +112,7 @@ namespace Backend.Data
 					Description = "Test 2",
 					Answer = "5272",
 					SolvedBy = 52,
-					Difficulty = "Normalny",
+					Difficulty = 30,
 					ReleaseDate = DateTime.Now
 				}
 			);
@@ -82,7 +125,7 @@ namespace Backend.Data
 					Description = "Test 3",
 					Answer = "234677892",
 					SolvedBy = 12,
-					Difficulty = "Trudny",
+					Difficulty = 70,
 					ReleaseDate = DateTime.Now
 				}
 			);

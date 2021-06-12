@@ -20,7 +20,7 @@ export class ProblemComponent implements OnInit {
 		Answer: new FormControl()
 	});
 
-	private readonly id: number;
+	public readonly id: number;
 
 	constructor(
 		private route: ActivatedRoute,
