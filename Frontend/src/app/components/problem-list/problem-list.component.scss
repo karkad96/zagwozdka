@@ -17,3 +17,16 @@ mat-header-cell, mat-cell {
 	justify-content: center;
 }
 
+.category
+{
+	display: flex;
+	justify-content: center;
+	padding: 5px;
+	font-size: 14px;
+}
+.icon
+{
+	width: 30px;
+	height: 30px;
+	padding-right: 5px;
+}

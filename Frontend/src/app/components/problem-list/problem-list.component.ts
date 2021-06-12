@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {IProblem} from "../../models/problem";
+import {IProblem, ITag} from "../../models/problem";
 import {ProblemService} from "../../shared/problem.service";
 
 @Component({
@@ -10,10 +10,30 @@ import {ProblemService} from "../../shared/problem.service";
 export class ProblemListComponent implements OnInit {
 
 	public problems: IProblem[] = []
+	private allProblems: IProblem[] = []
+	public tags: ITag[] = []
+	public defaultTag: number = 0;
 
-	constructor(private problemService: ProblemService) { }
+	constructor(private problemService: ProblemService) {
+	}
 
 	ngOnInit() {
-		this.problemService.getProblems().subscribe(data => this.problems = data);
+		this.problemService.getProblems().subscribe(data => {
+			this.problems = data.problems;
+			this.allProblems = data.problems;
+			this.tags = data.tags;
+		});
+	}
+
+	onCategoryChange(event: any) {
+		if(event == 0){
+			this.problems = this.allProblems;
+			return;
+		}
+		this.problems = [];
+		this.allProblems.forEach(p => {
+			if(p.tags.some( t => t.tagId == event))
+				this.problems.push(p);
+		});
 	}
 }
