@@ -2,11 +2,14 @@
 <mat-drawer-container class="example-container" autosize>
 	<mat-drawer #navigationSidenav class="example-sidenav" mode="side">
 		<ul class="menu-hover-fill">
-			<li><a data-text="strona główna">strona główna</a></li>
-			<li><a routerLink="/account" routerLinkActive="active" data-text="profil">profil</a></li>
-			<li><a routerLink="/problem-list" routerLinkActive="active" data-text="zagadki">zagadki</a></li>
-			<li><a data-text="statystyki">statystyki</a></li>
-			<li><a data-text="kontakt">kontakt</a></li>
+			<li *ngIf="(LoginStatus$ | async)"><a data-text="strona główna">strona główna</a></li>
+			<li *ngIf="(LoginStatus$ | async)"><a routerLink="/account" routerLinkActive="active" data-text="profil">profil</a></li>
+			<li *ngIf="(LoginStatus$ | async)"><a routerLink="/problem-list" routerLinkActive="active" data-text="zagadki">zagadki</a></li>
+			<li *ngIf="(LoginStatus$ | async)"><a data-text="statystyki">statystyki</a></li>
+			<li *ngIf="(LoginStatus$ | async)"><a data-text="kontakt">kontakt</a></li>
+
+			<li *ngIf="!(LoginStatus$ | async)"><a routerLink="/login" routerLinkActive="active" data-text="zaloguj się">zaloguj się</a></li>
+			<li *ngIf="!(LoginStatus$ | async)"><a routerLink="/register" routerLinkActive="active" data-text="zarejestruj się">zarejestruj się</a></li>
 		</ul>
 	</mat-drawer>
 
