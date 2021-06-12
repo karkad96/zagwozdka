@@ -4,6 +4,7 @@ export interface IStatistics {
 	ratings: IRatings[]
 	posts: IPosts[]
 	history: IHistory[]
+	ranking: IRanking[]
 	info: number
 	userName: string
 }
@@ -36,3 +37,9 @@ export interface IHistory {
 	solvedDate: string
 }
 
+export interface IRanking {
+	userName: string,
+	solved: number,
+	extraInfo: string,
+	programmingLanguage: string
+}

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {StatisticsService} from "../../shared/statistics.service";
-import {IHistory, IPosts, IProblems, IRatings} from "../../models/statistics";
+import {IHistory, IPosts, IProblems, IRanking, IRatings} from "../../models/statistics";
 
 @Component({
   selector: 'app-statistics',
@@ -12,8 +12,9 @@ export class StatisticsComponent implements OnInit {
 	ratings?: IRatings[] = [];
 	posts?: IPosts[] = [];
 	history?: IHistory[] = [];
-	count?: number
-	userName?: string
+	ranking?: IRanking[] = [];
+	count?: number;
+	userName?: string;
 	tooltipOptions = {
 		'placement': 'bottom',
 		'hide-delay': 0,
@@ -33,8 +34,10 @@ export class StatisticsComponent implements OnInit {
 				this.ratings = this.getRatings(data.ratings).reverse();
 				this.posts = this.getPosts(data.posts);
 				this.history = data.history;
-				this.count = data.info
-				this.userName = data.userName
+				this.count = data.info;
+				this.userName = data.userName;
+				this.ranking = data.ranking;
+				console.log(this.ranking);
 			}
 			);
   	}

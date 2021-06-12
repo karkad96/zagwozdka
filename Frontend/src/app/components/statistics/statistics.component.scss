@@ -53,6 +53,10 @@ mat-row {
 	max-width: 250px;
 }
 
+.w-200 {
+	max-width: 200px;
+}
+
 .w-120 {
 	max-width: 120px;
 }
@@ -61,4 +65,8 @@ mat-row {
 	max-width: 30px;
 }
 
-
+.left-right {
+	display: flex;
+	justify-content: space-between;
+	padding-right: 10px;
+}

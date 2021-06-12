@@ -84,7 +84,27 @@ namespace Backend.Controllers
             var info = await _context.Problems.CountAsync();
             var userName = _userManager.FindByIdAsync(userId).Result.UserName;
 
-            return Ok(new {problems, ratings, posts, history, info, userName});
+            var query = _context.ProblemUsers
+                .GroupBy(pu => pu.Id)
+                .Select(pu => new
+                {
+                    userId = pu.Key,
+                    solved = pu.Count()
+                })
+                .OrderByDescending(p => p.solved);
+
+            var ranking = from grouped in query
+                join user in _context.Set<ApplicationUser>()
+                    on grouped.userId equals user.Id
+                select new
+                {
+                    userName = user.UserName,
+                    grouped.solved,
+                    extraInfo = user.ExtraInfo,
+                    programmingLanguage = user.ProgramingLanguage
+                };
+
+            return Ok(new {problems, ratings, posts, history, ranking, info, userName});
         }
     }
 }
