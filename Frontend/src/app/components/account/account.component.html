@@ -1,4 +1,4 @@
-<mat-card class="center space" style="margin-top: 10px">
+<mat-card class="center space" style="margin-top: 30px">
 	<div fxLayout="row" fxLayoutAlign="space-between center">
 	<h1>Mój Profil</h1>
 	<button mat-raised-button routerLink="/statistics" color="primary" class="btn-block" >Statystyki</button>
@@ -36,11 +36,15 @@
 			</mat-list>
 		</div>
 	</div>
-	<div style="margin-top: 10px">
-		<input type="file" (change)="onFileSelected($event)" #fileInput style="display: none">
-		<button mat-stroked-button color="primary" class="btn-block" (click)="fileInput.click()">Wybierz zdjęcie</button>
-		<button mat-stroked-button color="primary" class="btn-block" (click)="onImagePost()">Prześlij zdjęcie</button>
-		<button mat-stroked-button color="primary" class="btn-block" (click)="onShow()">Edytuj</button>
+	<div style="margin-top: 10px" fxLayout="row" fxLayoutAlign="space-between center">
+		<div>
+			<input type="file" (change)="onFileSelected($event)" #fileInput style="display: none">
+			<button mat-stroked-button color="primary" class="btn-block" (click)="fileInput.click()">Wybierz zdjęcie</button>
+			<button mat-stroked-button color="primary" class="btn-block" (click)="onImagePost()">Prześlij zdjęcie</button>
+		</div>
+		<div>
+			<button mat-stroked-button color="primary" class="btn-block" (click)="onShow()">Edytuj</button>
+		</div>
 	</div>
 </mat-card>
 
