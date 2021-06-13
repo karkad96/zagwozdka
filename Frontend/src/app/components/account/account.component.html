@@ -1,96 +1,136 @@
 <mat-card class="center space" style="margin-top: 10px">
-	<img [src]="image" alt="" width="256" height="256" style="object-fit: cover;"><br/>
-	<input type="file" (change)="onFileSelected($event)" #fileInput style="display: none">
-	<button mat-stroked-button color="primary" class="btn-block" (click)="fileInput.click()">Wybierz zdjęcie</button>
-	<button mat-stroked-button color="primary" class="btn-block" (click)="onImagePost()">Prześlij zdjęcie</button>
-	<button mat-stroked-button routerLink="/statistics" color="primary" class="btn-block" >Statystyki</button>
+	<div fxLayout="row" fxLayoutAlign="space-between center">
+	<h1>Mój Profil</h1>
+	<button mat-raised-button routerLink="/statistics" color="primary" class="btn-block" >Statystyki</button>
+	</div>
+	<div fxLayout="row" fxLayoutAlign="space-evenly center">
+		<div>
+			<img [src]="image" alt="" width="256" height="256" style="min-width: 64px"><br/>
+		</div>
+		<div fxFlex="70">
+			<mat-list role="list">
+				<mat-list-item role="listitem">
+					<mat-form-field class="example-full-width">
+						<mat-label>Nazwa Użytkownika</mat-label>
+						<input matInput value="{{detailsFormModel.get('UserName')?.value}}" readonly>
+					</mat-form-field>
+				</mat-list-item>
+				<mat-list-item role="listitem">
+					<mat-form-field class="example-full-width">
+						<mat-label>Adres Email</mat-label>
+						<input matInput value="{{detailsFormModel.get('Email')?.value}}" readonly>
+					</mat-form-field>
+				</mat-list-item>
+				<mat-list-item role="listitem">
+					<mat-form-field class="example-full-width">
+						<mat-label>Język Programowania</mat-label>
+						<input matInput value="{{extraDetailsFormControl.get('Language')?.value}}" readonly>
+					</mat-form-field>
+				</mat-list-item>
+				<mat-list-item role="listitem">
+					<mat-form-field class="example-full-width">
+						<mat-label>Dodatkowe Informacje</mat-label>
+						<input matInput value="{{extraDetailsFormControl.get('ExtraInfo')?.value}}" readonly>
+					</mat-form-field>
+				</mat-list-item>
+			</mat-list>
+		</div>
+	</div>
+	<div style="margin-top: 10px">
+		<input type="file" (change)="onFileSelected($event)" #fileInput style="display: none">
+		<button mat-stroked-button color="primary" class="btn-block" (click)="fileInput.click()">Wybierz zdjęcie</button>
+		<button mat-stroked-button color="primary" class="btn-block" (click)="onImagePost()">Prześlij zdjęcie</button>
+		<button mat-stroked-button color="primary" class="btn-block" (click)="onShow()">Edytuj</button>
+	</div>
 </mat-card>
 
-<mat-card class="center space">
-	<form [formGroup]="detailsFormModel" class="example-form" (ngSubmit)="onBasicUpdate()">
-		<label><strong>Informacje podstawowe: </strong></label>
-		<mat-form-field class="example-full-width">
-			<mat-label>Nazwa użytkownika</mat-label>
-			<input matInput formControlName="UserName" [errorStateMatcher]="matcher">
-			<mat-error *ngIf="detailsFormModel.get('UserName')?.hasError('required')">
-				To pole jest <strong>wymagane</strong>
-			</mat-error>
-		</mat-form-field>
-		<mat-form-field class="example-full-width">
-			<mat-label>Email</mat-label>
-			<input type="email" matInput formControlName="Email" [errorStateMatcher]="matcher"
-				   placeholder="Np. zagw@przyklad.com">
-			<mat-error *ngIf="detailsFormModel.get('Email')?.hasError('email') && !detailsFormModel.get('Email')?.hasError('required')">
-				Niepoprawny adres email
-			</mat-error>
-			<mat-error *ngIf="detailsFormModel.get('Email')?.hasError('required')">
-				To pole jest <strong>wymagane</strong>
-			</mat-error>
-		</mat-form-field>
-		<button mat-stroked-button color="primary" class="btn-block" [disabled]="!detailsFormModel.valid">Aktualizuj</button>
-	</form>
-</mat-card>
+<div *ngIf="isShown" id="editable">
+	<mat-card class="center space">
+		<form [formGroup]="detailsFormModel" class="example-form" (ngSubmit)="onBasicUpdate()">
+			<label><strong>Informacje podstawowe: </strong></label>
+			<mat-form-field class="example-full-width">
+				<mat-label>Nazwa użytkownika</mat-label>
+				<input matInput formControlName="UserName" [errorStateMatcher]="matcher">
+				<mat-error *ngIf="detailsFormModel.get('UserName')?.hasError('required')">
+					To pole jest <strong>wymagane</strong>
+				</mat-error>
+			</mat-form-field>
+			<mat-form-field class="example-full-width">
+				<mat-label>Email</mat-label>
+				<input type="email" matInput formControlName="Email" [errorStateMatcher]="matcher"
+					   placeholder="Np. zagw@przyklad.com">
+				<mat-error *ngIf="detailsFormModel.get('Email')?.hasError('email') && !detailsFormModel.get('Email')?.hasError('required')">
+					Niepoprawny adres email
+				</mat-error>
+				<mat-error *ngIf="detailsFormModel.get('Email')?.hasError('required')">
+					To pole jest <strong>wymagane</strong>
+				</mat-error>
+			</mat-form-field>
+			<button mat-stroked-button color="primary" class="btn-block" [disabled]="!detailsFormModel.valid">Aktualizuj</button>
+		</form>
+	</mat-card>
 
-<mat-card class="center space">
-	<form [formGroup]="passwordFormModel" class="example-form" (ngSubmit)="onPasswordUpdate()">
-		<label><strong>Utwórz nowe hasło: </strong></label>
-		<mat-form-field class="example-full-width">
-			<mat-label>Nowe hasło</mat-label>
-			<input type="password" matInput formControlName="Password" [errorStateMatcher]="matcher">
-			<mat-error *ngIf="passwordFormModel.get('Password')?.hasError('required')">
-				To pole jest <strong>wymagane</strong>
-			</mat-error>
-		</mat-form-field>
-		<mat-form-field class="example-full-width">
-			<mat-label>Powtórz nowe hasło</mat-label>
-			<input type="password" matInput formControlName="ConfirmPassword" [errorStateMatcher]="matcher">
-			<mat-error *ngIf="passwordFormModel.get('ConfirmPassword')?.hasError('required')">
-				To pole jest <strong>wymagane</strong>
-			</mat-error>
-			<mat-error *ngIf="passwordFormModel.get('ConfirmPassword')?.hasError('passwordMismatch')">
-				Podane hasła się nie zgadzają
-			</mat-error>
-		</mat-form-field>
-		<button mat-stroked-button color="primary" class="btn-block" [disabled]="!passwordFormModel.valid">Aktualizuj</button>
-	</form>
-</mat-card>
+	<mat-card class="center space">
+		<form [formGroup]="passwordFormModel" class="example-form" (ngSubmit)="onPasswordUpdate()">
+			<label><strong>Utwórz nowe hasło: </strong></label>
+			<mat-form-field class="example-full-width">
+				<mat-label>Nowe hasło</mat-label>
+				<input type="password" matInput formControlName="Password" [errorStateMatcher]="matcher">
+				<mat-error *ngIf="passwordFormModel.get('Password')?.hasError('required')">
+					To pole jest <strong>wymagane</strong>
+				</mat-error>
+			</mat-form-field>
+			<mat-form-field class="example-full-width">
+				<mat-label>Powtórz nowe hasło</mat-label>
+				<input type="password" matInput formControlName="ConfirmPassword" [errorStateMatcher]="matcher">
+				<mat-error *ngIf="passwordFormModel.get('ConfirmPassword')?.hasError('required')">
+					To pole jest <strong>wymagane</strong>
+				</mat-error>
+				<mat-error *ngIf="passwordFormModel.get('ConfirmPassword')?.hasError('passwordMismatch')">
+					Podane hasła się nie zgadzają
+				</mat-error>
+			</mat-form-field>
+			<button mat-stroked-button color="primary" class="btn-block" [disabled]="!passwordFormModel.valid">Aktualizuj</button>
+		</form>
+	</mat-card>
 
-<mat-card class="center space">
-	<form [formGroup]="extraDetailsFormControl" autocomplete="off" (ngSubmit)="onExtraUpdate()" class="example-form">
-		<label><strong>Informacje dodatkowe: </strong></label>
-		<mat-form-field class="example-full-width">
-			<mat-label>Język programowania</mat-label>
-			<mat-select formControlName="Language">
-				<mat-option></mat-option>
-				<mat-option
-					*ngFor="let language of languages"
-					[value]="language">
-					{{ language }}
-				</mat-option>
-			</mat-select>
-		</mat-form-field><br/>
-		<mat-form-field class="example-full-width">
-			<mat-label>Inforamcje o sobie</mat-label>
-			<textarea matInput
-					  placeholder="max. 200 znaków"
-					  cdkTextareaAutosize
-					  cdkAutosizeMinRows="1"
-					  cdkAutosizeMaxRows="5"
-			   		  maxlength="200"
-					  formControlName="ExtraInfo"></textarea>
-		</mat-form-field><br/>
-		<button mat-stroked-button color="primary" class="btn-block">Aktualizuj</button>
-	</form>
-</mat-card>
+	<mat-card class="center space">
+		<form [formGroup]="extraDetailsFormControl" autocomplete="off" (ngSubmit)="onExtraUpdate()" class="example-form">
+			<label><strong>Informacje dodatkowe: </strong></label>
+			<mat-form-field class="example-full-width">
+				<mat-label>Język programowania</mat-label>
+				<mat-select formControlName="Language">
+					<mat-option></mat-option>
+					<mat-option
+						*ngFor="let language of languages"
+						[value]="language">
+						{{ language }}
+					</mat-option>
+				</mat-select>
+			</mat-form-field><br/>
+			<mat-form-field class="example-full-width">
+				<mat-label>Inforamcje o sobie</mat-label>
+				<textarea matInput
+						  placeholder="max. 200 znaków"
+						  cdkTextareaAutosize
+						  cdkAutosizeMinRows="1"
+						  cdkAutosizeMaxRows="5"
+						  maxlength="200"
+						  formControlName="ExtraInfo"></textarea>
+			</mat-form-field><br/>
+			<button mat-stroked-button color="primary" class="btn-block">Aktualizuj</button>
+		</form>
+	</mat-card>
 
-<mat-card class="center space">
-	<form [formGroup]="optionsFormModel" autocomplete="off" (ngSubmit)="onOptionsUpdate()" class="example-form">
-		<label><strong>Co chcesz zrobić? </strong></label>
-		<mat-radio-group aria-label="Select an option" class="example-radio-group" formControlName="Options">
-			<mat-radio-button value="1" class="example-radio-button" color="primary">Zresetuj swój postęp</mat-radio-button>
-			<mat-radio-button value="2" class="example-radio-button" color="primary">Usuń konto</mat-radio-button>
-			<mat-radio-button value="3" class="example-radio-button" color="primary">Nic nie rób</mat-radio-button>
-		</mat-radio-group>
-		<button mat-stroked-button color="primary" class="btn-block">Aktualizuj</button>
-	</form>
-</mat-card>
+	<mat-card class="center space">
+		<form [formGroup]="optionsFormModel" autocomplete="off" (ngSubmit)="onOptionsUpdate()" class="example-form">
+			<label><strong>Co chcesz zrobić? </strong></label>
+			<mat-radio-group aria-label="Select an option" class="example-radio-group" formControlName="Options">
+				<mat-radio-button value="1" class="example-radio-button" color="primary">Zresetuj swój postęp</mat-radio-button>
+				<mat-radio-button value="2" class="example-radio-button" color="primary">Usuń konto</mat-radio-button>
+				<mat-radio-button value="3" class="example-radio-button" color="primary">Nic nie rób</mat-radio-button>
+			</mat-radio-group>
+			<button mat-stroked-button color="primary" class="btn-block">Aktualizuj</button>
+		</form>
+	</mat-card>
+</div>

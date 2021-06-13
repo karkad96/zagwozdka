@@ -58,6 +58,7 @@ export class AccountComponent implements OnInit {
 	matcher = new MyErrorStateMatcher();
 	image?: any
 	private base64textString: string = "";
+	isShown: boolean = false;
 
 	constructor(private accountService: AccountService,
 				private formBuilder: FormBuilder,
@@ -69,6 +70,10 @@ export class AccountComponent implements OnInit {
 	ngOnInit(): void {
 		this.getAccount();
 		this.getLanguages();
+	}
+
+	onShow() {
+		this.isShown = !this.isShown;
 	}
 
 	getAccount() {

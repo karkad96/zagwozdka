@@ -24,6 +24,7 @@ ul > li {
 }
 a {
 	text-decoration: none;
+	cursor: pointer;
 }
 
 .menu-hover-fill {
@@ -82,7 +83,7 @@ $menu-link-active-colors: #0f00f0, #fce038, #f42f53, #6c7cf0, #6c7cf0;
 
 		&:hover {
 			&::after {
-				left: calc(100% + 1rem);
+				left: calc(100% + 0.5rem);
 			}
 
 			a {
