@@ -37,7 +37,7 @@
 
 		<ng-container matColumnDef="releaseDate">
 			<mat-header-cell *matHeaderCellDef> Data wydania </mat-header-cell>
-			<mat-cell *matCellDef="let row"> {{row.releaseDate.split(".", 1)}} </mat-cell>
+			<mat-cell *matCellDef="let row"> {{row.releaseDate | date: "MM/dd/yyyy HH:mm:ss"}} </mat-cell>
 		</ng-container>
 
 		<mat-header-row *matHeaderRowDef="['problemId', 'title', 'difficulty', 'solvedBy', 'releaseDate']"></mat-header-row>
