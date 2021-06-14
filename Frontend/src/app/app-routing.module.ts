@@ -8,6 +8,7 @@ import {ProblemListComponent} from "./components/problem-list/problem-list.compo
 import {AccountComponent} from "./components/account/account.component";
 import {ProblemThreadComponent} from "./components/problem-thread/problem-thread.component";
 import {StatisticsComponent} from "./components/statistics/statistics.component";
+import { AddProblemComponent } from './components/add-problem/add-problem.component';
 
 const routes: Routes = [
 	{ path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -17,7 +18,8 @@ const routes: Routes = [
 	{ path: 'problem/:id', component: ProblemComponent },
 	{ path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
 	{ path: 'problem-thread/:id', component: ProblemThreadComponent, canActivate: [AuthGuard] },
-	{ path: 'statistics', component: StatisticsComponent, canActivate: [AuthGuard] }
+	{ path: 'statistics', component: StatisticsComponent, canActivate: [AuthGuard] },
+	{ path: 'add-problem', component: AddProblemComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
