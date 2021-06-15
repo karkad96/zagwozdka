@@ -2,7 +2,7 @@
 <mat-drawer-container class="example-container" autosize>
 	<mat-drawer #navigationSidenav class="example-sidenav" mode="side">
 		<ul class="menu-hover-fill">
-			<li *ngIf="(LoginStatus$ | async)"><a data-text="strona główna">strona główna</a></li>
+			<li *ngIf="(LoginStatus$ | async)"><a routerLink="/main-page" routerLinkActive="active" data-text="strona główna">strona główna</a></li>
 			<li *ngIf="(LoginStatus$ | async)"><a routerLink="/account" routerLinkActive="active" data-text="profil">profil</a></li>
 			<li *ngIf="(LoginStatus$ | async)"><a routerLink="/problem-list" routerLinkActive="active" data-text="zagwozdki">zagwozdki</a></li>
 			<li *ngIf="(LoginStatus$ | async)"><a routerLink="/statistics" data-text="statystyki">statystyki</a></li>

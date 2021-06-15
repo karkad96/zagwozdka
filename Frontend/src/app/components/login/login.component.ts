@@ -13,14 +13,14 @@ export class LoginComponent implements OnInit {
 
 	ngOnInit() {
 		if (localStorage.getItem('token') != null)
-			this.router.navigateByUrl('/problem-list');
+			this.router.navigateByUrl('/main-page');
 	}
 
 	onSubmit() {
 		this.loginService.login().subscribe(
 			(res: any) => {
 				localStorage.setItem('token', res.token);
-				this.router.navigateByUrl('/problem-list');
+				this.router.navigateByUrl('/main-page');
 			},
 			err => {
 				if (err.status == 400) {

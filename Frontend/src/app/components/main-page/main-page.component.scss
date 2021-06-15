@@ -1,0 +1,35 @@
+p {
+	font-family: Lato, serif;
+}
+mat-card-header
+{
+	padding: 10px;
+	justify-content: center;
+}
+mat-card-title
+{
+	text-transform: uppercase;
+	padding: 10px;
+	text-align: center;
+	color: white;
+	letter-spacing: 2px;
+	justify-content: center;
+}
+.title
+{
+	font-size: 40px;
+	font-family: Arial, Helvetica, sans-serif ;
+}
+.example-card {
+	margin: 5px;
+	justify-content: center;
+	background-image: url("../../../assets/rubics_screen.jpg");
+	background-size: cover;
+	height: 100vh;
+}
+mat-card-content
+{
+	padding-right: 100px;
+	padding-left: 100px;
+	text-align: center;
+}
