@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {BehaviorSubject, Observable, of} from "rxjs";
@@ -10,7 +11,15 @@ import {IAnswer, IProblem, IProblemsAndTags, ITag} from "../models/problem";
 export class ProblemService {
 	private url: string = environment.baseUrl + '/Problem';
 
-	constructor(private httpClient: HttpClient) { }
+	constructor(private formBuilder: FormBuilder, private httpClient: HttpClient) { }
+
+	formModel = this.formBuilder.group({
+		ProblemId: ['', Validators.required],
+		Title: ['', Validators.required],
+		Description: ['', Validators.required],
+		Answer: ['', Validators.required],
+		Difficulty: ['', Validators.required],
+	});
 
 	getProblems(): Observable<IProblemsAndTags> {
 		return this.httpClient.get<IProblemsAndTags>(this.url);
@@ -22,5 +31,17 @@ export class ProblemService {
 
 	postAnswer(id: number, body: any) {
 		return this.httpClient.post(this.url + '/' + id, body);
+	}
+
+	addproblem() {
+		const body = {
+			ProblemId: this.formModel.value.ProblemId,
+			Title: this.formModel.value.Title,
+			Description: this.formModel.value.Description,
+			Answer: this.formModel.value.Answer,
+			Difficulty: this.formModel.value.Difficulty
+
+		};
+		return this.httpClient.post(environment.baseUrl + '/Problem/Add', body)
 	}
 }

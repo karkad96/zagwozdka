@@ -148,5 +148,31 @@ namespace Backend.Controllers
         {
             public string Answer { get; set; }
         }
+        
+        [HttpPost]
+        [Authorize]
+        [Route("Add")]
+        public async Task<object> PostProblem(AddProblem problem)
+        {
+            var entry = new Problem
+            {
+                ProblemId = problem.ProblemId,
+                Title = problem.Title,
+                Description = problem.Description,
+                Answer = problem.Answer,
+                SolvedBy = 0,
+                Difficulty = problem.Difficulty,
+                ReleaseDate = DateTime.Now,
+                ProblemTags = null,
+                ProblemUsers = null,
+                Posts = null
+            };
+
+            await _context.Problems.AddAsync(entry);
+            await _context.SaveChangesAsync();
+
+            return GetProblem(problem.ProblemId);
+        }
+        
     }
 }

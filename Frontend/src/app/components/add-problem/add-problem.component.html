@@ -1,0 +1,40 @@
+<div class="main-wrapper" fxLayout="row" fxLayoutAlign="center center">
+	<mat-card class="box">
+		<mat-card-header>
+			<mat-card-title>Dodaj Zagwozdke</mat-card-title>
+		</mat-card-header>
+
+		<form [formGroup]="problemService.formModel" class="example-form" (ngSubmit)="onSubmit()" autocomplete="off">
+			<mat-card-content>
+
+				<mat-form-field class="example-full-width">
+					<input matInput placeholder="Numer Zagwozdki" formControlName="ProblemId">
+					<mat-error *ngIf="problemService.formModel.get('ProblemId')?.touched && problemService.formModel.get('ProblemId')?.errors?.required">To pole jest wymagane</mat-error>
+				</mat-form-field>
+
+				<mat-form-field class="example-full-width">
+					<input matInput placeholder="Tytuł" formControlName="Title">
+					<mat-error *ngIf="problemService.formModel.get('Title')?.touched && problemService.formModel.get('Title')?.errors?.required">To pole jest wymagane</mat-error>
+				</mat-form-field>
+
+				<mat-form-field class="example-full-width">
+					<input matInput placeholder="Treść" formControlName="Description">
+					<mat-error *ngIf="problemService.formModel.get('Description')?.touched && problemService.formModel.get('Description')?.errors?.required">To pole jest wymagane</mat-error>
+				</mat-form-field>
+
+				<mat-form-field class="example-full-width">
+					<input matInput placeholder="Odpowiedź" formControlName="Answer">
+					<mat-error *ngIf="problemService.formModel.get('Answer')?.touched && problemService.formModel.get('Answer')?.errors?.required">To pole jest wymagane</mat-error>
+				</mat-form-field>
+
+				<mat-form-field class="example-full-width">
+					<input matInput placeholder="Poziom trudności" formControlName="Difficulty">
+					<mat-error *ngIf="problemService.formModel.get('Difficulty')?.touched && problemService.formModel.get('Difficulty')?.errors?.required">To pole jest wymagane</mat-error>
+				</mat-form-field>
+
+			</mat-card-content>
+			<button mat-stroked-button color="accent" class="btn-block" [disabled]="!problemService.formModel.valid">Dodaj</button>
+		</form>
+
+	</mat-card>
+</div>
