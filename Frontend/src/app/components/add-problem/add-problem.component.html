@@ -6,12 +6,6 @@
 
 		<form [formGroup]="problemService.formModel" class="example-form" (ngSubmit)="onSubmit()" autocomplete="off">
 			<mat-card-content>
-
-				<mat-form-field class="example-full-width">
-					<input matInput placeholder="Numer Zagwozdki" formControlName="ProblemId">
-					<mat-error *ngIf="problemService.formModel.get('ProblemId')?.touched && problemService.formModel.get('ProblemId')?.errors?.required">To pole jest wymagane</mat-error>
-				</mat-form-field>
-
 				<mat-form-field class="example-full-width">
 					<input matInput placeholder="Tytuł" formControlName="Title">
 					<mat-error *ngIf="problemService.formModel.get('Title')?.touched && problemService.formModel.get('Title')?.errors?.required">To pole jest wymagane</mat-error>

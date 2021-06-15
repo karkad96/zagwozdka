@@ -14,7 +14,6 @@ export class ProblemService {
 	constructor(private formBuilder: FormBuilder, private httpClient: HttpClient) { }
 
 	formModel = this.formBuilder.group({
-		ProblemId: ['', Validators.required],
 		Title: ['', Validators.required],
 		Description: ['', Validators.required],
 		Answer: ['', Validators.required],
@@ -35,12 +34,10 @@ export class ProblemService {
 
 	addproblem() {
 		const body = {
-			ProblemId: this.formModel.value.ProblemId,
 			Title: this.formModel.value.Title,
 			Description: this.formModel.value.Description,
 			Answer: this.formModel.value.Answer,
 			Difficulty: this.formModel.value.Difficulty
-
 		};
 		return this.httpClient.post(environment.baseUrl + '/Problem/Add', body)
 	}

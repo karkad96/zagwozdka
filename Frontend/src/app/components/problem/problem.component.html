@@ -1,8 +1,9 @@
 <mat-card *ngIf="problem" class="center">
 	<h2>{{problem.title | uppercase}}</h2>
-	<div><b>Zagwozdka {{problem.problemId}}</b></div>
+	<div style="font-size: 15px"><b>Zagwozdka {{problem.problemId}}</b></div>
+	<br>
 	<div>
-		<p>{{problem.description}}</p>
+		<p style="white-space: pre-line; font-size: 17px">{{problem.description}}</p>
 	</div>
 	<div fxLayout="row" *ngIf="(LoginStatus$ | async) && !problem.result" class="center">
 		<form [formGroup]="formModel" (ngSubmit)="onSubmit()" autocomplete="off" class="example-form">

@@ -88,7 +88,7 @@ namespace Backend.Data
 			new Problem
 			{
 				ProblemId = 7,
-				Title = "Sumowanie liczb pierwszych",
+				Title = "Specjalna trójka pitagorejska",
 				Description = "Trójka pitagorejska to zbiór trzech liczb naturalnych, a < b < c, dla których: a^2 + b^2 = c^2" +
 							  "Na przykład 3^2 + 4^2 = 9 + 16 = 25 = 5^2." +
 				              "Istnieje dokładnie jedna trójka pitagorejska, dla której a + b + c = 1000." +
@@ -101,7 +101,7 @@ namespace Backend.Data
 			new Problem
 			{
 				ProblemId = 8,
-				Title = "Specjalna trójka pitagorejska",
+				Title = "Sumowanie liczb pierwszych",
 				Description = "Suma liczb pierwszych poniżej 10 to 2 + 3 + 5 + 7 = 17.\n" +
 				              "Znajdź sumę wszystkich liczb pierwszych poniżej dwóch milionów.",
 				Answer = "142913828922",
@@ -165,7 +165,7 @@ namespace Backend.Data
 			new Problem
 			{
 				ProblemId = 13,
-				Title = "Suma monet",
+				Title = "Rozmienianie monet",
 				Description = "W Polsce waluta składa się ze złotówki (zł) i grosza (gr). W powszechnym obiegu znajduje się dziewięc monet:\n" +
 				              "1gr, 2gr, 5gr, 10gr, 20gr, 50gr, 1zł (100gr), 2zł (200gr) i 5zł (500gr).\n" +
 				              "5zł można rozmienić w następujący sposób:\n" +

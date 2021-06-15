@@ -5,7 +5,7 @@ a {
 }
 
 mat-table {
-	width: 50%;
+	width: 45%;
 }
 
 mat-header-cell, mat-cell {
@@ -29,4 +29,12 @@ mat-header-cell, mat-cell {
 	width: 30px;
 	height: 30px;
 	padding-right: 5px;
+}
+
+.w-75 {
+	max-width: 75px;
+}
+
+.w-100 {
+	max-width: 100px;
 }

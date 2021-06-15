@@ -56,10 +56,10 @@ namespace Backend.Controllers
                 tagId = t.TagId,
                 tagName = t.TagName
             }).ToListAsync();
-            
+
             tags.Add(new {tagId = 0, tagName = "Wszystkie"});
             tags = tags.OrderBy(t => t.tagId).ToList();
-            
+
             return Ok(new {problems, tags});
         }
 
@@ -148,7 +148,7 @@ namespace Backend.Controllers
         {
             public string Answer { get; set; }
         }
-        
+
         [HttpPost]
         [Authorize]
         [Route("Add")]
@@ -156,16 +156,12 @@ namespace Backend.Controllers
         {
             var entry = new Problem
             {
-                ProblemId = problem.ProblemId,
                 Title = problem.Title,
                 Description = problem.Description,
                 Answer = problem.Answer,
                 SolvedBy = 0,
                 Difficulty = problem.Difficulty,
                 ReleaseDate = DateTime.Now,
-                ProblemTags = null,
-                ProblemUsers = null,
-                Posts = null
             };
 
             await _context.Problems.AddAsync(entry);
@@ -173,6 +169,6 @@ namespace Backend.Controllers
 
             return GetProblem(problem.ProblemId);
         }
-        
+
     }
 }
