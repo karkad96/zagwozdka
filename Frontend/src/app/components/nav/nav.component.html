@@ -6,8 +6,7 @@
 			<li *ngIf="(LoginStatus$ | async)"><a routerLink="/account" routerLinkActive="active" data-text="profil">profil</a></li>
 			<li *ngIf="(LoginStatus$ | async)"><a routerLink="/problem-list" routerLinkActive="active" data-text="zagwozdki">zagwozdki</a></li>
 			<li *ngIf="(LoginStatus$ | async)"><a routerLink="/statistics" data-text="statystyki">statystyki</a></li>
-			<li *ngIf="(LoginStatus$ | async)"><a routerLink="/add-problem" data-text="dodaj zagwozdke">dodaj zagwozdke</a></li>
-			<li *ngIf="(LoginStatus$ | async)"><a data-text="kontakt">kontakt</a></li>
+			<li *ngIf="(LoginStatus$ | async)"><a routerLink="/add-problem" data-text="dodaj zagwozdkę">dodaj zagwozdkę</a></li>
 			<li *ngIf="(LoginStatus$ | async)"><a data-text="wyloguj się" (click)="onLogout()">wyloguj się</a></li>
 
 			<li *ngIf="!(LoginStatus$ | async)"><a routerLink="/login" routerLinkActive="active" data-text="zaloguj się">zaloguj się</a></li>
