@@ -108,7 +108,7 @@
 				<mat-cell *matCellDef="let row" [ngClass]="'w-200'" class="left-right">
 					{{row.userName}}
 					<mat-icon color="primary"
-							  *ngIf="row.extraInfo"
+							  *ngIf="row.extraInfo && row.extraInfo!=' '"
 							  style="cursor: pointer;"
 							  tooltip="{{row.extraInfo}}"
 							  [options]="tooltipOptions">

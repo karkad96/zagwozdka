@@ -167,9 +167,16 @@ export class AccountComponent implements OnInit {
 	}
 
 	onExtraUpdate() {
+		let extrInfo = this.extraDetailsFormControl.get('ExtraInfo')?.value;
+		extrInfo = (extrInfo == null || extrInfo == undefined) ? "" : extrInfo;
+
+		let lang = this.extraDetailsFormControl.get('Language')?.value;
+		lang = (lang == null || lang == undefined) ? "" : lang;
+
+
 		this.accountService.putExtraInfo({
-			ProgrammingLanguage: this.extraDetailsFormControl.get('Language')?.value,
-			ExtraInfo: this.extraDetailsFormControl.get('ExtraInfo')?.value
+			ProgrammingLanguage: lang,
+			ExtraInfo: extrInfo
 		}).subscribe((res: any) => {
 				if(res == 200) {
 					this.toastrService.success(

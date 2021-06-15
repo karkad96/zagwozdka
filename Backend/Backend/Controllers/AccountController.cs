@@ -117,8 +117,8 @@ namespace Backend.Controllers
 
             if (user != null)
             {
-                user.ProgramingLanguage = info.ProgrammingLanguage;
-                user.ExtraInfo = info.ExtraInfo;
+                user.ProgramingLanguage = info.ProgrammingLanguage==null?"":info.ProgrammingLanguage;
+                user.ExtraInfo = info.ExtraInfo==null?"":info.ExtraInfo;
                 await _userManager.UpdateAsync(user);
             }
 
