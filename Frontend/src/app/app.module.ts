@@ -31,6 +31,7 @@ import {StatisticsService} from "./shared/statistics.service";
 import { TooltipModule } from 'ng2-tooltip-directive';
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import { AddProblemComponent } from './components/add-problem/add-problem.component';
+import { MainPageComponent } from './components/main-page/main-page.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { AddProblemComponent } from './components/add-problem/add-problem.compon
 	  DeletePostComponent,
 	  ReportPostComponent,
 	  StatisticsComponent,
-	  AddProblemComponent
+	  AddProblemComponent,
+	  MainPageComponent
   ],
 	imports: [
 		BrowserModule,
