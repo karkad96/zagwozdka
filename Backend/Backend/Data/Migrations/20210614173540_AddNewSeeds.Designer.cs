@@ -3,14 +3,16 @@ using System;
 using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20210614173540_AddNewSeeds")]
+    partial class AddNewSeeds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,6 +153,28 @@ namespace Backend.Data.Migrations
                     b.HasKey("ProblemId");
 
                     b.ToTable("Problems");
+
+                    b.HasData(
+                        new
+                        {
+                            ProblemId = 1,
+                            Answer = "233168",
+                            Description = "",
+                            Difficulty = 5,
+                            ReleaseDate = new DateTime(2021, 6, 14, 19, 35, 40, 139, DateTimeKind.Local).AddTicks(7558),
+                            SolvedBy = 112,
+                            Title = "Wielokrotność 3 i 5"
+                        },
+                        new
+                        {
+                            ProblemId = 2,
+                            Answer = "4613732",
+                            Description = "Każdy nowy wyraz w ciągu Fibonacciego jest generowany przez dodanie dwóch poprzednich wyrazów. Zaczynając od 1 i 2, pierwsze 10 terminów będzie:\n1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...\nRozważając wyrazy w ciągu Fibonacciego, których wartości nie przekraczają czterech milionów, znajdź sumę wyrazów o parzystych wartościach.",
+                            Difficulty = 5,
+                            ReleaseDate = new DateTime(2021, 6, 14, 19, 35, 40, 145, DateTimeKind.Local).AddTicks(2647),
+                            SolvedBy = 101,
+                            Title = "Parzyste liczby Fibonacciego"
+                        });
                 });
 
             modelBuilder.Entity("Backend.Models.Tag", b =>
@@ -166,6 +190,38 @@ namespace Backend.Data.Migrations
                     b.HasKey("TagId");
 
                     b.ToTable("Tags");
+
+                    b.HasData(
+                        new
+                        {
+                            TagId = 1,
+                            TagName = "Matematyka"
+                        },
+                        new
+                        {
+                            TagId = 2,
+                            TagName = "Programowanie"
+                        },
+                        new
+                        {
+                            TagId = 3,
+                            TagName = "Programowanie Dynamiczne"
+                        },
+                        new
+                        {
+                            TagId = 4,
+                            TagName = "Fizyka"
+                        },
+                        new
+                        {
+                            TagId = 5,
+                            TagName = "Jednolinijkowiec"
+                        },
+                        new
+                        {
+                            TagId = 6,
+                            TagName = "Drzewa binarne"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

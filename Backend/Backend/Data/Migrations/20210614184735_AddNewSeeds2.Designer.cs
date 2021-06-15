@@ -3,14 +3,16 @@ using System;
 using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20210614184735_AddNewSeeds2")]
+    partial class AddNewSeeds2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,6 +153,138 @@ namespace Backend.Data.Migrations
                     b.HasKey("ProblemId");
 
                     b.ToTable("Problems");
+
+                    b.HasData(
+                        new
+                        {
+                            ProblemId = 1,
+                            Answer = "233168",
+                            Description = "Jeśli wymienimy wszystkie liczby naturalne poniżej 10, które są wielokrotnościami 3 lub 5, otrzymamy 3, 5, 6 i 9. Suma tych wielokrotności wynosi 23.\n Znajdź sumę wszystkich wielokrotności 3 lub 5 poniżej 1000.",
+                            Difficulty = 5,
+                            ReleaseDate = new DateTime(2021, 6, 14, 20, 47, 34, 652, DateTimeKind.Local).AddTicks(881),
+                            SolvedBy = 112,
+                            Title = "Wielokrotność 3 i 5"
+                        },
+                        new
+                        {
+                            ProblemId = 2,
+                            Answer = "4613732",
+                            Description = "Każdy nowy wyraz w ciągu Fibonacciego jest generowany przez dodanie dwóch poprzednich wyrazów. Zaczynając od 1 i 2, pierwsze 10 terminów będzie:\n1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...\nRozważając wyrazy w ciągu Fibonacciego, których wartości nie przekraczają czterech milionów, znajdź sumę wyrazów o parzystych wartościach.",
+                            Difficulty = 5,
+                            ReleaseDate = new DateTime(2021, 6, 14, 20, 47, 34, 656, DateTimeKind.Local).AddTicks(9303),
+                            SolvedBy = 101,
+                            Title = "Parzyste liczby Fibonacciego"
+                        },
+                        new
+                        {
+                            ProblemId = 3,
+                            Answer = "6857",
+                            Description = "Czynniki pierwsze liczby 13195 to 5, 7, 13 i 29.\nJaki jest największy czynnik pierwszy liczby 600851475143?",
+                            Difficulty = 5,
+                            ReleaseDate = new DateTime(2021, 6, 14, 20, 47, 34, 656, DateTimeKind.Local).AddTicks(9358),
+                            SolvedBy = 95,
+                            Title = "Największy czynnik pierwszy"
+                        },
+                        new
+                        {
+                            ProblemId = 4,
+                            Answer = "906609",
+                            Description = "Palindrom to wyrażenie brzmiące tak samo czytane od lewej do prawej i od prawej do lewej. Największy palindrom wykonany z iloczynu dwóch liczb dwucyfrowych to 9009 = 91 × 99.\nZnajdź największy palindrom wykonany z iloczynu dwóch 3-cyfrowych liczb.",
+                            Difficulty = 5,
+                            ReleaseDate = new DateTime(2021, 6, 14, 20, 47, 34, 656, DateTimeKind.Local).AddTicks(9365),
+                            SolvedBy = 115,
+                            Title = "Największy produkt palindromowy"
+                        },
+                        new
+                        {
+                            ProblemId = 5,
+                            Answer = "232792560",
+                            Description = "2520 to najmniejsza liczba, którą można podzielić przez każdą z liczb od 1 do 10 bez reszty.\nJaka jest najmniejsza liczba dodatnia, która jest podzielna bez reszt przez wszystkie liczby od 1 do 20?",
+                            Difficulty = 5,
+                            ReleaseDate = new DateTime(2021, 6, 14, 20, 47, 34, 656, DateTimeKind.Local).AddTicks(9369),
+                            SolvedBy = 112,
+                            Title = "Najmniejsza wielokrotność"
+                        },
+                        new
+                        {
+                            ProblemId = 6,
+                            Answer = "104743",
+                            Description = "Wymieniając sześć pierwszych liczb pierwszych: 2, 3, 5, 7, 11 i 13, widzimy, że szósta liczba pierwsza to 13.\nJaka jest 10001 liczba pierwsza?",
+                            Difficulty = 5,
+                            ReleaseDate = new DateTime(2021, 6, 14, 20, 47, 34, 656, DateTimeKind.Local).AddTicks(9377),
+                            SolvedBy = 98,
+                            Title = "10001 liczba pierwsza"
+                        },
+                        new
+                        {
+                            ProblemId = 7,
+                            Answer = "31875000",
+                            Description = "Trójka pitagorejska to zbiór trzech liczb naturalnych, a < b < c, dla których: a^2 + b^2 = c^2Na przykład 3^2 + 4^2 = 9 + 16 = 25 = 5^2.Istnieje dokładnie jedna trójka pitagorejska, dla której a + b + c = 1000.Znajdź produkt a*b*c.",
+                            Difficulty = 5,
+                            ReleaseDate = new DateTime(2021, 6, 14, 20, 47, 34, 656, DateTimeKind.Local).AddTicks(9381),
+                            SolvedBy = 102,
+                            Title = "Sumowanie liczb pierwszych"
+                        },
+                        new
+                        {
+                            ProblemId = 8,
+                            Answer = "142913828922",
+                            Description = "Suma liczb pierwszych poniżej 10 to 2 + 3 + 5 + 7 = 17.\nZnajdź sumę wszystkich liczb pierwszych poniżej dwóch milionów.",
+                            Difficulty = 5,
+                            ReleaseDate = new DateTime(2021, 6, 14, 20, 47, 34, 656, DateTimeKind.Local).AddTicks(9385),
+                            SolvedBy = 104,
+                            Title = "Specjalna trójka pitagorejska"
+                        },
+                        new
+                        {
+                            ProblemId = 9,
+                            Answer = "1366",
+                            Description = "2^15 = 32768, a suma jej cyfr to 3 + 2 + 7 + 6 + 8 = 26.\nJaka jest suma cyfr liczby 2^1000?",
+                            Difficulty = 5,
+                            ReleaseDate = new DateTime(2021, 6, 14, 20, 47, 34, 656, DateTimeKind.Local).AddTicks(9389),
+                            SolvedBy = 96,
+                            Title = "Suma cyfr z potęgi"
+                        },
+                        new
+                        {
+                            ProblemId = 10,
+                            Answer = "648",
+                            Description = "n! oznacza n × (n − 1) × ... × 3 × 2 × 1\nNa przykład 10! = 10 × 9 × ... × 3 × 2 × 1 = 3628800,\na suma cyfr w liczbie 10! to 3 + 6 + 2 + 8 + 8 + 0 + 0 = 27.\nZnajdź sumę cyfr w liczbie 100!",
+                            Difficulty = 5,
+                            ReleaseDate = new DateTime(2021, 6, 14, 20, 47, 34, 656, DateTimeKind.Local).AddTicks(9395),
+                            SolvedBy = 101,
+                            Title = "Suma cyfr silni"
+                        },
+                        new
+                        {
+                            ProblemId = 11,
+                            Answer = "31626",
+                            Description = "Niech d(n) będzie zdefiniowana jako suma właściwych dzielników n (liczby mniejsze od n, które dzielą się bez reszty z n).Jeśli d(a) = b i d(b) = a, gdzie a != b, to a i b są parą zaprzyjaźnioną i każde z a i b nazywa się liczbami zaprzyjaźnionymi.\nNa przykład właściwymi dzielnikami liczby 220 są 1, 2, 4, 5, 10, 11, 20, 22, 44, 55 i 110; zatem d(220) = 284. Właściwymi dzielnikami 284 są 1, 2, 4, 71 i 142; więc d(284) = 220.\nOblicz sumę wszystkich liczb zaprzyjaźnionych poniżej 10000.",
+                            Difficulty = 5,
+                            ReleaseDate = new DateTime(2021, 6, 14, 20, 47, 34, 656, DateTimeKind.Local).AddTicks(9399),
+                            SolvedBy = 145,
+                            Title = "Liczby zaprzyjaźnione"
+                        },
+                        new
+                        {
+                            ProblemId = 12,
+                            Answer = "31626",
+                            Description = "Permutacja to uporządkowany układ obiektów. Na przykład 3124 jest jedną z możliwych permutacji cyfr 1, 2, 3 i 4. Jeśli wszystkie permutacje są wymienione numerycznie lub alfabetycznie, nazywamy to porządkiem leksykograficznym. Leksykograficzne permutacje 0, 1 i 2 to:\n012 021 102 120 201 210Jaka jest milionowa permutacja leksykograficzna cyfr 0, 1, 2, 3, 4, 5, 6, 7, 8 i 9?",
+                            Difficulty = 5,
+                            ReleaseDate = new DateTime(2021, 6, 14, 20, 47, 34, 656, DateTimeKind.Local).AddTicks(9403),
+                            SolvedBy = 145,
+                            Title = "Permutacje leksykograficzne"
+                        },
+                        new
+                        {
+                            ProblemId = 13,
+                            Answer = "73682",
+                            Description = "W Polsce waluta składa się ze złotówki (zł) i grosza (gr). W powszechnym obiegu znajduje się dziewięc monet:\n1gr, 2gr, 5gr, 10gr, 20gr, 50gr, 1zł (100gr), 2zł (200gr) i 5zł (500gr).\n5zł można rozmienić w następujący sposób:\n1×2zł + 2×1zł + 1×50gr + 2×20gr + 1×5gr + 1×2gr + 3×1gr\nNa ile różnych sposobów można rozimenić 5zł przy użyciu dowolnej liczby monet?\n",
+                            Difficulty = 15,
+                            ReleaseDate = new DateTime(2021, 6, 14, 20, 47, 34, 656, DateTimeKind.Local).AddTicks(9407),
+                            SolvedBy = 87,
+                            Title = "Suma monet"
+                        });
                 });
 
             modelBuilder.Entity("Backend.Models.Tag", b =>
@@ -166,6 +300,38 @@ namespace Backend.Data.Migrations
                     b.HasKey("TagId");
 
                     b.ToTable("Tags");
+
+                    b.HasData(
+                        new
+                        {
+                            TagId = 1,
+                            TagName = "Matematyka"
+                        },
+                        new
+                        {
+                            TagId = 2,
+                            TagName = "Programowanie"
+                        },
+                        new
+                        {
+                            TagId = 3,
+                            TagName = "Programowanie Dynamiczne"
+                        },
+                        new
+                        {
+                            TagId = 4,
+                            TagName = "Fizyka"
+                        },
+                        new
+                        {
+                            TagId = 5,
+                            TagName = "Jednolinijkowiec"
+                        },
+                        new
+                        {
+                            TagId = 6,
+                            TagName = "Drzewa binarne"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
